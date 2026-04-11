@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema para Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --surface: #111;
+  --surface2: #161616;
+  --border: #1f1f1f;
+  --accent: #d4a0c0;
+  --accent-dim: rgba(212,160,192,0.10);
+  --amber: #e8a020;
+  --text: #e8e8e8;
+  --muted: #666;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 16px 20px;
+  transition: color 0.2s;
+}
+.back:hover { color: var(--text); }
+
+/* HERO */
+.hero {
+  padding: 32px 20px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  border: 1px solid rgba(212,160,192,0.25);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 11vw, 68px);
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 14px 24px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.cta-btn:hover { opacity: 0.88; }
+
+/* DOR */
+.section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.pain-list { display: flex; flex-direction: column; gap: 12px; }
+.pain-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid rgba(212,160,192,0.4);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.pain-item p {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.6;
+}
+.pain-item p strong { color: #fff; font-weight: 500; }
+
+/* SOLUÇÃO */
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.benefit {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 16px;
+}
+.benefit-icon { font-size: 22px; margin-bottom: 10px; }
+.benefit-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 6px; }
+.benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+/* COMO FUNCIONA */
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+  position: relative;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.step-text { padding-top: 6px; }
+.step-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* PREVIEW */
+.preview-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.preview-box img {
+  width: 100%;
+  display: block;
+}
+.preview-placeholder {
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.preview-placeholder span { font-size: 32px; }
+
+/* CTA FINAL */
+.cta-final {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.cta-final h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.cta-final p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.author {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface2);
+}
+.author img {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--border);
+}
+.author-info { flex: 1; }
+.author-name { font-weight: 500; font-size: 13px; color: #fff; }
+.author-bio { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← voltar</a>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">🎂 Sistema para Confeitaria</div>
+  <h1>Você sabe quanto<br>custa cada <span>bolo</span><br>que você faz?</h1>
+  <p class="hero-sub">A maioria das confeiteiras trabalha muito, vende bastante — e no final do mês o dinheiro some. O problema quase sempre é preço errado. Esse sistema resolve isso.</p>
+  <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20confeitaria%20e%20quero%20saber%20mais.">💬 Quero entender como funciona</a>
+</div>
+
+<!-- DOR -->
+<div class="section">
+  <div class="section-label">Você se identifica?</div>
+  <div class="pain-list">
+    <div class="pain-item">
+      <p><strong>Você calcula o preço "no feeling"</strong> — soma os ingredientes, chuta um valor e torce para dar lucro. Às vezes dá, às vezes não. E você nunca sabe exatamente por quê.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Quando o preço do ingrediente sobe</strong>, você demora semanas para ajustar os preços — ou nem ajusta, com medo de perder cliente.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Você aceita encomenda com prazo curto</strong> e só percebe que não vai conseguir entregar tudo quando já está com a mão na massa — literalmente.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>No final do mês</strong>, você vendeu bem, mas não sobrou o que deveria. Você não sabe onde foi o dinheiro.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUÇÃO -->
+<div class="section">
+  <div class="section-label">O que o sistema entrega</div>
+  <div class="benefit-grid">
+    <div class="benefit">
+      <div class="benefit-icon">🧮</div>
+      <div class="benefit-title">Custo real por produto</div>
+      <div class="benefit-desc">Cada ingrediente, cada embalagem, cada hora de trabalho — tudo calculado automaticamente.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">💰</div>
+      <div class="benefit-title">Preço com margem certa</div>
+      <div class="benefit-desc">Você define a margem que quer e o sistema te diz o preço mínimo para não trabalhar de graça.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📋</div>
+      <div class="benefit-title">Controle de produção</div>
+      <div class="benefit-desc">Fichas técnicas organizadas, lista de compras gerada automaticamente conforme as encomendas.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <div class="benefit-title">Visão do mês</div>
+      <div class="benefit-desc">Faturamento, custo e lucro real. Você sabe exatamente quanto sobrou — e de onde veio.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div class="section">
+  <div class="section-label">Como é o sistema</div>
+  <div class="preview-box">
+    <img src="gif1.gif" alt="Preview do sistema" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+    <div class="preview-placeholder" style="display:none">
+      <span>📸</span>
+      <p>gif ou print do sistema aqui</p>
+    </div>
+  </div>
+</div>
+
+<!-- COMO FUNCIONA -->
+<div class="section">
+  <div class="section-label">Como começa</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-text">
+        <div class="step-title">Você me manda seus produtos e ingredientes</div>
+        <div class="step-desc">Por WhatsApp mesmo. Uma lista simples dos seus produtos e o que usa para fazer cada um.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-text">
+        <div class="step-title">Eu configuro o sistema para o seu negócio</div>
+        <div class="step-desc">Coloco seus produtos, ingredientes, custos fixos e margem. Você não precisa fazer nada técnico.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-text">
+        <div class="step-title">Você começa a usar no mesmo dia</div>
+        <div class="step-desc">Simples, no computador ou celular. Sem instalação, sem complicação.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="section">
+  <div class="cta-final">
+    <h3>Pronto para saber o preço certo?</h3>
+    <p>Me chama no WhatsApp. Sem compromisso — a gente conversa sobre o seu negócio e eu te explico como funciona.</p>
+    <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20confeitaria%20e%20quero%20saber%20mais.">💬 Iniciar conversa</a>
+
+    <div class="author">
+      <img src="euPerfil.jpg" alt="Marcio Cunha" onerror="this.style.background='#1f1f1f'">
+      <div class="author-info">
+        <div class="author-name">Marcio Cunha</div>
+        <div class="author-bio">8+ anos em automação industrial. Aplica a mesma lógica de controle e precisão em pequenos negócios.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

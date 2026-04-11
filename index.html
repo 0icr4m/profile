@@ -3,740 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Márcio Cunha | Soluções Digitais</title>
+<title>Marcio Cunha | Sistemas para Pequenos Negócios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
 :root {
   --bg: #080808;
-  --surface: #111111;
-  --surface2: #181818;
+  --surface: #111;
   --border: #1f1f1f;
   --amber: #e8a020;
-  --amber-dim: rgba(232,160,32,0.12);
+  --amber-dim: rgba(232,160,32,0.10);
   --text: #e8e8e8;
   --muted: #666;
-  --faint: #2a2a2a;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 300;
   min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ─── NOISE OVERLAY ─── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.5;
-}
-
-/* ─── HEADER / HERO ─── */
-.hero {
-  position: relative;
-  padding: 48px 20px 36px;
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -80px;
-  width: 320px; height: 320px;
-  background: radial-gradient(circle, rgba(232,160,32,0.10) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-grid {
-  max-width: 640px;
-  margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.avatar-wrap {
-  position: relative;
-  flex-shrink: 0;
-}
-.avatar-wrap img {
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  border: 2px solid var(--faint);
-  background: var(--surface2);
-}
-.avatar-ring {
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 1px solid var(--amber);
-  opacity: 0.35;
-}
-
-.hero-text { flex: 1; }
-
-.hero-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--amber);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-.hero-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 38px;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: #fff;
-  margin-bottom: 8px;
-}
-
-.hero-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  max-width: 300px;
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 14px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--amber);
-  text-decoration: none;
-  border: 1px solid rgba(232,160,32,0.3);
-  padding: 7px 14px;
-  border-radius: 2px;
-  transition: background 0.2s, border-color 0.2s;
-}
-.hero-cta:hover {
-  background: var(--amber-dim);
-  border-color: var(--amber);
-}
-.hero-cta::before { content: '→'; }
-
-/* ─── TICKER ─── */
-.ticker-wrap {
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  padding: 9px 0;
-  background: var(--surface);
-}
-.ticker {
-  display: flex;
-  gap: 0;
-  white-space: nowrap;
-  animation: tick 28s linear infinite;
-}
-.ticker span {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  padding: 0 28px;
-}
-.ticker span.hi { color: var(--amber); }
-@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ─── NAV ─── */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(8,8,8,0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-.nav ul {
-  display: flex;
-  list-style: none;
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-.nav a {
-  display: block;
-  padding: 13px 12px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.2s;
-}
-.nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 12px; right: 12px;
-  height: 2px;
-  background: var(--amber);
-  transform: scaleX(0);
-  transition: transform 0.2s;
-}
-.nav a.active, .nav a:hover { color: #fff; }
-.nav a.active::after { transform: scaleX(1); }
-
-/* ─── MAIN ─── */
-main {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 16px 100px;
-}
-
-/* ─── SECTIONS ─── */
-.section { display: none; padding-top: 28px; }
-.section.active { display: block; }
-
-.section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ─── PROJETOS ─── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  transition: border-color 0.2s;
-}
-.card:hover { border-color: rgba(232,160,32,0.3); }
-
-.card-media {
-  height: 190px;
-  background: var(--surface2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-.card-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.card-media-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: var(--muted);
+  justify-content: center;
+  padding: 40px 20px;
 }
-.card-media-placeholder .icon {
-  font-size: 32px;
-  opacity: 0.5;
+.top {
+  text-align: center;
+  margin-bottom: 48px;
 }
-.card-tag {
-  position: absolute;
-  top: 12px; right: 12px;
+.label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
+  font-size: 10px;
+  letter-spacing: 0.18em;
   color: var(--amber);
-  background: rgba(8,8,8,0.75);
-  border: 1px solid rgba(232,160,32,0.25);
-  padding: 3px 8px;
-  border-radius: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
-
-.card-body { padding: 18px; }
-.card-body h3 {
-  font-family: 'IBM Plex Sans', sans-serif;
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 10vw, 60px);
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.sub {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 320px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+.question {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 440px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 22px 18px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.card:hover {
+  border-color: rgba(232,160,32,0.4);
+  background: #141414;
+}
+.card-icon { font-size: 26px; }
+.card-name {
   font-weight: 500;
   font-size: 15px;
   color: #fff;
-  margin-bottom: 6px;
 }
-.card-body p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.card-sectors {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
-}
-.pill {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  border: 1px solid var(--faint);
-  padding: 3px 8px;
-  border-radius: 20px;
-}
-
-/* ─── SOBRE ─── */
-.sobre-block {
-  border-left: 2px solid var(--amber);
-  padding-left: 16px;
-  margin-bottom: 24px;
-}
-.sobre-block p {
-  font-size: 14px;
-  line-height: 1.75;
-  color: #aaa;
-}
-.sobre-block p + p { margin-top: 10px; }
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 24px;
-}
-.stat {
-  background: var(--surface);
-  padding: 18px 14px;
-  text-align: center;
-}
-.stat-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 30px;
-  color: var(--amber);
-  line-height: 1;
-}
-.stat-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  margin-top: 4px;
-  text-transform: uppercase;
-}
-
-/* ─── CARREIRA ─── */
-.timeline { position: relative; padding-left: 18px; }
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 6px; bottom: 6px;
-  width: 1px;
-  background: var(--faint);
-}
-.job {
-  position: relative;
-  margin-bottom: 28px;
-}
-.job::before {
-  content: '';
-  position: absolute;
-  left: -22px; top: 6px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--amber);
-}
-.job-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 6px;
-}
-.job-title {
-  font-weight: 500;
-  font-size: 14px;
-  color: #fff;
-}
-.job-company {
-  font-size: 12px;
-  color: var(--amber);
-  margin-top: 2px;
-}
-.job-period {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  white-space: nowrap;
-  margin-top: 3px;
-}
-.job-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.career-intro {
-  font-size: 14px;
-  color: #aaa;
-  line-height: 1.75;
-  margin-bottom: 28px;
-  border-left: 2px solid var(--amber);
-  padding-left: 16px;
-}
-
-/* ─── FAMÍLIA ─── */
-.familia-wrap img {
-  width: 100%;
-  border-radius: 4px;
-  display: block;
-  border: 1px solid var(--border);
-  background: var(--surface2);
-}
-.familia-quote {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-top: 18px;
-  text-align: center;
-  font-style: italic;
-}
-
-/* ─── CONTATO ─── */
-.contact-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.contact-list li a {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px 18px;
-  text-decoration: none;
-  color: var(--text);
-  font-size: 14px;
-  transition: border-color 0.2s, background 0.2s;
-}
-.contact-list li a:hover {
-  border-color: rgba(232,160,32,0.4);
-  background: var(--surface2);
-}
-.contact-icon {
-  width: 36px; height: 36px;
-  background: var(--amber-dim);
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  flex-shrink: 0;
-}
-.contact-info { flex: 1; }
-.contact-title { font-weight: 500; font-size: 13px; color: #fff; }
-.contact-sub {
-  font-family: 'IBM Plex Mono', monospace;
+.card-teaser {
   font-size: 11px;
   color: var(--muted);
-  margin-top: 2px;
+  line-height: 1.5;
 }
-.contact-arrow { color: var(--muted); font-size: 12px; }
+.card-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--amber);
+  margin-top: 4px;
+}
+.footer {
+  margin-top: 48px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #333;
+}
+.footer a { color: #444; text-decoration: none; }
+.footer a:hover { color: var(--muted); }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-grid">
-    <div class="avatar-wrap">
-      <img src="euPerfil.jpg" alt="Marcio Cunha">
-      <div class="avatar-ring"></div>
-    </div>
-    <div class="hero-text">
-      <div class="hero-label">Soluções Digitais</div>
-      <h1 class="hero-name">Marcio<br>Cunha</h1>
-      <p class="hero-desc">Do chão de fábrica aos centros de controle — sistemas que trazem clareza, controle e previsibilidade para seus negócios.</p>
-      <a class="hero-cta" href="https://wa.me/5511970696387">Iniciar conversa</a>
-    </div>
-  </div>
-</header>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="hi">Confeitaria</span><span>·</span>
-    <span>Pizzaria</span><span>·</span>
-    <span>Salão de Cabeleireiro</span><span>·</span>
-    <span>Petshop</span><span>·</span>
-    <span class="hi">Precificação</span><span>·</span>
-    <span>Gestão de Produção</span><span>·</span>
-    <span>Controle de Estoque</span><span>·</span>
-    <span class="hi">8+ anos em automação industrial</span><span>·</span>
-    <!-- duplicate for seamless loop -->
-    <span class="hi">Confeitaria</span><span>·</span>
-    <span>Pizzaria</span><span>·</span>
-    <span>Salão de Cabeleireiro</span><span>·</span>
-    <span>Petshop</span><span>·</span>
-    <span class="hi">Precificação</span><span>·</span>
-    <span>Gestão de Produção</span><span>·</span>
-    <span>Controle de Estoque</span><span>·</span>
-    <span class="hi">8+ anos em automação industrial</span><span>·</span>
-  </div>
+<div class="top">
+  <div class="label">Marcio Cunha · Soluções Digitais</div>
+  <h1>Qual é o<br>seu negócio?</h1>
+  <p class="sub">Sistemas prontos para uso, adaptados à realidade de cada segmento. Escolha o seu e veja como funciona.</p>
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <ul>
-    <li><a href="#" onclick="show(event,'projetos')" class="active">Projetos</a></li>
-    <li><a href="#" onclick="show(event,'sobre')">Sobre</a></li>
-    <li><a href="#" onclick="show(event,'carreira')">Carreira</a></li>
-    <li><a href="#" onclick="show(event,'familia')">Família</a></li>
-    <li><a href="#" onclick="show(event,'contato')">Contato</a></li>
-  </ul>
-</nav>
+<div class="question">Selecione seu segmento</div>
 
-<main>
+<div class="grid">
+  <a class="card" href="confeitaria.html">
+    <div class="card-icon">🎂</div>
+    <div class="card-name">Confeitaria</div>
+    <div class="card-teaser">Precificação e controle de produção</div>
+    <div class="card-link">ver sistema →</div>
+  </a>
+  <a class="card" href="pizzaria.html">
+    <div class="card-icon">🍕</div>
+    <div class="card-name">Pizzaria</div>
+    <div class="card-teaser">Ficha técnica, custos e produção</div>
+    <div class="card-link">ver sistema →</div>
+  </a>
+  <a class="card" href="salao.html">
+    <div class="card-icon">✂️</div>
+    <div class="card-name">Salão</div>
+    <div class="card-teaser">Agenda, comissões e faturamento, controle de estoque e equipamentos </div>
+    <div class="card-link">ver sistema →</div>
+  </a>
+  <a class="card" href="petshop.html">
+    <div class="card-icon">🐾</div>
+    <div class="card-name">Petshop</div>
+    <div class="card-teaser">Agenda, banho e tosa, serviços, insumos e receita</div>
+    <div class="card-link">ver sistema →</div>
+  </a>
+</div>
 
-  <!-- ── PROJETOS ── -->
-  <section id="projetos" class="section active">
-    <div class="section-label">Produtos Disponíveis</div>
+<div class="footer">
+  <a href="https://wa.me/5511970696387">Dúvidas? Me chama no WhatsApp</a>
+</div>
 
-    <div class="card">
-      <div class="card-media">
-        <img src="gif1.gif" alt="Precificação Inteligente">
-        <div class="card-tag">ESTÁVEL · v1</div>
-      </div>
-      <div class="card-body">
-        <h3>Precificação Inteligente</h3>
-        <p>Você passa a enxergar exatamente onde está o lucro — e onde está deixando dinheiro na mesa. Custos, margens e preços calculados com precisão, sem chute.</p>
-        <div class="card-sectors">
-          <span class="pill">Confeitaria</span>
-          <span class="pill">Pizzaria</span>
-          <span class="pill">Gastronomia em geral</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-media">
-        <img src="gif2.gif" alt="Gestão de Produção">
-        <div class="card-tag">ESTÁVEL · v1</div>
-      </div>
-      <div class="card-body">
-        <h3>Gestão de Produção</h3>
-        <p>Transforma a operação em fluxo organizado e previsível. Fichas, lotes e etapas sob controle — menos retrabalho, mais entrega no prazo.</p>
-        <div class="card-sectors">
-          <span class="pill">Confeitaria</span>
-          <span class="pill">Pizzaria</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-media">
-        <div class="card-media-placeholder">
-          <div class="icon">✂️</div>
-          <span style="font-size:11px; letter-spacing:0.08em;">em breve — imagem do sistema</span>
-        </div>
-        <div class="card-tag">ESTÁVEL · v1</div>
-      </div>
-      <div class="card-body">
-        <h3>Gestão para Salão de Cabeleireiro</h3>
-        <p>Agendamentos, comissões, controle de estoque de produtos e faturamento consolidado. Visibilidade real do dia a dia do salão.</p>
-        <div class="card-sectors">
-          <span class="pill">Salão de Cabeleireiro</span>
-          <span class="pill">Estética</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-media">
-        <div class="card-media-placeholder">
-          <div class="icon">🐾</div>
-          <span style="font-size:11px; letter-spacing:0.08em;">em breve — imagem do sistema</span>
-        </div>
-        <div class="card-tag">ESTÁVEL · v1</div>
-      </div>
-      <div class="card-body">
-        <h3>Gestão para Petshop</h3>
-        <p>Controle de serviços, insumos, animais em atendimento e receita por tipo de serviço. Operação mais organizada, margem mais clara.</p>
-        <div class="card-sectors">
-          <span class="pill">Petshop</span>
-          <span class="pill">Banho & Tosa</span>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ── SOBRE ── -->
-  <section id="sobre" class="section">
-    <div class="section-label">Quem sou</div>
-
-    <div class="sobre-block">
-      <p>Engenheiro de automação industrial com mais de 8 anos desenvolvendo sistemas para ambientes críticos — metrô, energia, saneamento. Nesse universo, aprendi que clareza de dados e controle de processo não são luxo: são o que separa uma operação eficiente de uma operação no escuro.</p>
-      <p>Apliquei essa mesma lógica em pequenos negócios. O dono de confeitaria que não sabe o custo real de cada produto, o pizzaiolo que perde margem sem perceber — eles têm o mesmo problema que uma planta industrial sem supervisório: operam sem visibilidade.</p>
-      <p>Desenvolvo sistemas prontos para uso, adaptados à realidade de cada segmento, com foco em resultado prático desde o primeiro dia.</p>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat">
-        <div class="stat-num">8+</div>
-        <div class="stat-label">Anos de experiência</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">Segmentos atendidos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Sistemas estáveis</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CARREIRA ── -->
-  <section id="carreira" class="section">
-    <div class="section-label">Trajetória CLT</div>
-
-    <p class="career-intro">
-      Graduado em Tecnologia em Automação Industrial pelo IFSP, com formação técnica pela ETEC Lauro Gomes e aprendizagem industrial pelo SENAI. Especialista em sistemas SCADA com mais de 8 anos de atuação em projetos críticos nos setores de energia, saneamento e transporte.
-    </p>
-
-    <div class="timeline">
-
-      <div class="job">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Analista de Dados Industriais Sênior</div>
-            <div class="job-company">Radix Brasil</div>
-          </div>
-          <div class="job-period">MAR 2024 → ATUAL</div>
-        </div>
-        <p class="job-desc">Atuação remota em projetos de análise de dados industriais, aplicando expertise em sistemas supervisórios e historiamento de variáveis para gerar inteligência operacional em ambientes de grande escala.</p>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Especialista em Sistemas SCADA Sênior</div>
-            <div class="job-company">Automa</div>
-          </div>
-          <div class="job-period">DEZ 2022 → MAR 2024</div>
-        </div>
-        <p class="job-desc">Suporte técnico e operacional de sistemas de Nível 2 e Nível 3 para clientes como ENERGIMP, AEGEA e ENEVA. Atendimento emergencial a ENEL Green Power, CPFL Renováveis e SERENA. Diagnósticos complexos via análise de logs Elipse, com protocolos IEC 104, IEC 61850, DNP3, Modbus, OPC UA/DA. Participação nos testes do Elipse Water junto à equipe da Elipse Software.</p>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Analista Técnico Pleno</div>
-            <div class="job-company">Radix Engenharia e Software</div>
-          </div>
-          <div class="job-period">AGO 2018 → NOV 2022</div>
-        </div>
-        <p class="job-desc">Projetos para Metrô de São Paulo (Linhas 4, 5 e 15), Itaú Unibanco e Scala Data Centers. Integração e comissionamento com Elipse E3 e Elipse Power. Desenvolvimento de macros Excel que reduziram significativamente o tempo de desenvolvimento e padronizaram a expansão dos sistemas. Criação de dashboards no EPM Portal para insights operacionais. Condução de FAT/SAT.</p>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Técnico de Campo Júnior</div>
-            <div class="job-company">Microblau Controles e Automação</div>
-          </div>
-          <div class="job-period">JAN 2018 → AGO 2018</div>
-        </div>
-        <p class="job-desc">Projetos em ambientes hospitalares e data centers: Rede D'Or, Hospital Albert Einstein, Hospital Oswaldo Cruz, Grupo Fleury e EQUINIX. Parametrização de inversores WEG e Rockwell PowerFlex, sintonização de malhas PID, configuração de redes Modbus/TCP-IP e integração com Elipse E3. Start-ups de sistemas HVAC e grupos geradores.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── FAMÍLIA ── -->
-  <section id="familia" class="section">
-    <div class="section-label">O que move tudo isso</div>
-    <div class="familia-wrap">
-      <img src="familia.jpg" alt="Família">
-    </div>
-    <p class="familia-quote">
-      "É por eles que busco evoluir todos os dias — e é pensando neles que cada sistema precisa funcionar de verdade."
-    </p>
-  </section>
-
-  <!-- ── CONTATO ── -->
-  <section id="contato" class="section">
-    <div class="section-label">Fale comigo</div>
-    <ul class="contact-list">
-      <li>
-        <a href="https://wa.me/55SEUNUMERO">
-          <div class="contact-icon">💬</div>
-          <div class="contact-info">
-            <div class="contact-title">WhatsApp</div>
-            <div class="contact-sub">Resposta rápida · canal preferido</div>
-          </div>
-          <div class="contact-arrow">→</div>
-        </a>
-      </li>
-      <li>
-        <a href="mailto:seu@email.com">
-          <div class="contact-icon">✉️</div>
-          <div class="contact-info">
-            <div class="contact-title">E-mail</div>
-            <div class="contact-sub">seu@email.com</div>
-          </div>
-          <div class="contact-arrow">→</div>
-        </a>
-      </li>
-      <li>
-        <a href="https://linkedin.com/in/SEUPERFIL" target="_blank">
-          <div class="contact-icon">🔗</div>
-          <div class="contact-info">
-            <div class="contact-title">LinkedIn</div>
-            <div class="contact-sub">Perfil profissional completo</div>
-          </div>
-          <div class="contact-arrow">→</div>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-</main>
-
-<script>
-function show(e, id) {
-  e.preventDefault();
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-  e.currentTarget.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
 </body>
 </html>

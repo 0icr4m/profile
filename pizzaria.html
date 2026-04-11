@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema para Pizzaria | Marcio Cunha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --surface: #111;
+  --surface2: #161616;
+  --border: #1f1f1f;
+  --accent: #e07840;
+  --accent-dim: rgba(224,120,64,0.10);
+  --text: #e8e8e8;
+  --muted: #666;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 16px 20px;
+  transition: color 0.2s;
+}
+.back:hover { color: var(--text); }
+.hero {
+  padding: 32px 20px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  border: 1px solid rgba(224,120,64,0.25);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 11vw, 68px);
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 14px 24px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.cta-btn:hover { opacity: 0.88; }
+.section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.pain-list { display: flex; flex-direction: column; gap: 12px; }
+.pain-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid rgba(224,120,64,0.4);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.pain-item p { font-size: 14px; color: #aaa; line-height: 1.6; }
+.pain-item p strong { color: #fff; font-weight: 500; }
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.benefit {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 16px;
+}
+.benefit-icon { font-size: 22px; margin-bottom: 10px; }
+.benefit-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 6px; }
+.benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+  position: relative;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px; top: 32px; bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.step-text { padding-top: 6px; }
+.step-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.preview-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.preview-box img { width: 100%; display: block; }
+.preview-placeholder {
+  height: 220px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; color: var(--muted); font-size: 13px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.preview-placeholder span { font-size: 32px; }
+.cta-final {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.cta-final h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.cta-final p { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.author {
+  margin-top: 32px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface2);
+}
+.author img {
+  width: 44px; height: 44px;
+  border-radius: 50%; object-fit: cover;
+  background: var(--border);
+}
+.author-name { font-weight: 500; font-size: 13px; color: #fff; }
+.author-bio { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← voltar</a>
+
+<div class="hero">
+  <div class="hero-tag">🍕 Sistema para Pizzaria</div>
+  <h1>Sua pizza<br>está dando <span>lucro</span><br>de verdade?</h1>
+  <p class="hero-sub">Muitos pizzaiolos enchem a casa, trabalham a noite toda — e a conta no fim do mês não fecha do jeito que devia. O problema está nos custos que ninguém calculou direito.</p>
+  <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20pizzaria%20e%20quero%20saber%20mais.">💬 Quero entender como funciona</a>
+</div>
+
+<div class="section">
+  <div class="section-label">Você se identifica?</div>
+  <div class="pain-list">
+    <div class="pain-item">
+      <p><strong>Você sabe o preço da farinha, do queijo, do tomate</strong> — mas nunca somou isso por pizza. O custo real de cada sabor é um mistério.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Quando o queijo dispara de preço</strong>, você posterga o reajuste — e vai absorvendo o prejuízo sem perceber, pedido a pedido.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Sábado à noite com fila de pedido</strong> e você descobre no meio do rush que faltou ingrediente. Improvisação vira rotina.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Você não sabe qual sabor dá mais lucro</strong> — e nem quais estão te fazendo perder dinheiro. Você vende tudo igual.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">O que o sistema entrega</div>
+  <div class="benefit-grid">
+    <div class="benefit">
+      <div class="benefit-icon">🧮</div>
+      <div class="benefit-title">Custo por sabor</div>
+      <div class="benefit-desc">Cada ingrediente de cada sabor calculado. Você vê o custo real de cada pizza que sai do forno.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📈</div>
+      <div class="benefit-title">Margem por produto</div>
+      <div class="benefit-desc">Sabe quais sabores dão mais lucro — e quais estão pesando sem necessidade.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🛒</div>
+      <div class="benefit-title">Lista de compras</div>
+      <div class="benefit-desc">Com base nas suas vendas, o sistema gera o que você precisa comprar. Sem falta, sem excesso.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🔄</div>
+      <div class="benefit-title">Atualização de preços</div>
+      <div class="benefit-desc">Mudou o custo de um ingrediente? Atualiza em um lugar e todos os preços recalculam automaticamente.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Como é o sistema</div>
+  <div class="preview-box">
+    <img src="gif2.gif" alt="Preview do sistema" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+    <div class="preview-placeholder" style="display:none">
+      <span>📸</span>
+      <p>gif ou print do sistema aqui</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Como começa</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-text">
+        <div class="step-title">Me manda a lista dos seus sabores e ingredientes</div>
+        <div class="step-desc">Pelo WhatsApp. Não precisa ser nada formal — uma foto do cardápio já resolve.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-text">
+        <div class="step-title">Configuro o sistema com os seus dados</div>
+        <div class="step-desc">Custo de cada insumo, rendimento, mão de obra, custos fixos — tudo montado para o seu negócio.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-text">
+        <div class="step-title">Você já começa a usar no mesmo dia</div>
+        <div class="step-desc">Simples, rápido, no celular ou no computador. Sem instalação.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="cta-final">
+    <h3>Chega de vender no escuro.</h3>
+    <p>Me chama no WhatsApp. Conversa sem compromisso — você explica como funciona sua pizzaria e eu te mostro como o sistema se encaixa.</p>
+    <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20pizzaria%20e%20quero%20saber%20mais.">💬 Iniciar conversa</a>
+    <div class="author">
+      <img src="euPerfil.jpg" alt="Marcio Cunha" onerror="this.style.background='#1f1f1f'">
+      <div>
+        <div class="author-name">Marcio Cunha</div>
+        <div class="author-bio">8+ anos em automação industrial. Aplica a mesma lógica de controle e precisão em pequenos negócios.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

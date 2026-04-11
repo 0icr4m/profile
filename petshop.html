@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema para Petshop | Marcio Cunha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --surface: #111;
+  --surface2: #161616;
+  --border: #1f1f1f;
+  --accent: #7ab0e0;
+  --accent-dim: rgba(122,176,224,0.10);
+  --text: #e8e8e8;
+  --muted: #666;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
+}
+.back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--muted);
+  text-decoration: none; padding: 16px 20px; transition: color 0.2s;
+}
+.back:hover { color: var(--text); }
+.hero { padding: 32px 20px 40px; max-width: 600px; margin: 0 auto; }
+.hero-tag {
+  display: inline-block; font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em; color: var(--accent);
+  text-transform: uppercase; border: 1px solid rgba(122,176,224,0.25);
+  padding: 4px 10px; border-radius: 2px; margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 11vw, 68px);
+  line-height: 0.95; color: #fff; margin-bottom: 20px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 420px; margin-bottom: 28px; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #000;
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  font-weight: 500; letter-spacing: 0.08em;
+  padding: 14px 24px; border-radius: 3px; text-decoration: none; transition: opacity 0.2s;
+}
+.cta-btn:hover { opacity: 0.88; }
+.section { max-width: 600px; margin: 0 auto; padding: 0 20px 48px; }
+.section-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.pain-list { display: flex; flex-direction: column; gap: 12px; }
+.pain-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid rgba(122,176,224,0.4);
+  border-radius: 4px; padding: 16px 18px;
+}
+.pain-item p { font-size: 14px; color: #aaa; line-height: 1.6; }
+.pain-item p strong { color: #fff; font-weight: 500; }
+.benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.benefit { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 16px; }
+.benefit-icon { font-size: 22px; margin-bottom: 10px; }
+.benefit-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 6px; }
+.benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+.step:not(:last-child)::after {
+  content: ''; position: absolute; left: 15px; top: 32px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--accent); flex-shrink: 0;
+}
+.step-text { padding-top: 6px; }
+.step-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.cta-final {
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 2px solid var(--accent); border-radius: 4px;
+  padding: 28px 24px; text-align: center;
+}
+.cta-final h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.04em; color: #fff; margin-bottom: 8px; }
+.cta-final p { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.author {
+  margin-top: 32px; display: flex; align-items: center; gap: 12px;
+  padding: 16px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface2);
+}
+.author img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: var(--border); }
+.author-name { font-weight: 500; font-size: 13px; color: #fff; }
+.author-bio { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← voltar</a>
+
+<div class="hero">
+  <div class="hero-tag">🐾 Sistema para Petshop</div>
+  <h1>Banho e tosa<br>todo dia — e a<br><span>margem sumindo?</span></h1>
+  <p class="hero-sub">Agenda cheia, shampoo, condicionador, lâminas, produtos de revenda — e no final você não sabe exatamente quanto sobra de cada serviço. Esse sistema coloca isso na tela pra você.</p>
+  <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Quero entender como funciona</a>
+</div>
+
+<div class="section">
+  <div class="section-label">Você se identifica?</div>
+  <div class="pain-list">
+    <div class="pain-item">
+      <p><strong>Você cobra pelo banho, mas não calcula</strong> quanto de produto foi usado em cada animal. Um golden retriever e um pinscher custam o mesmo pra você? No sistema atual, provavelmente sim.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Estoque de produto desaparece</strong> sem você saber onde foi. Você compra, usa, compra de novo — mas não tem controle de consumo por serviço.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Os pets que ficam internados ou em hotel</strong> geram custo de insumo que você não monitora. É difícil cobrar certo sem ter os dados.</p>
+    </div>
+    <div class="pain-item">
+      <p><strong>Você tem revenda de produtos</strong>, mas não sabe quais têm mais saída nem qual margem cada um gera de verdade.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">O que o sistema entrega</div>
+  <div class="benefit-grid">
+    <div class="benefit">
+      <div class="benefit-icon">🐕</div>
+      <div class="benefit-title">Custo por serviço</div>
+      <div class="benefit-desc">Banho, tosa, hidratação — cada serviço com o custo real de insumos calculado. Preço que cobre e dá lucro.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📦</div>
+      <div class="benefit-title">Estoque de insumos</div>
+      <div class="benefit-desc">Produtos consumidos por atendimento descontados automaticamente. Você vê o que tem e quando pedir.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🏪</div>
+      <div class="benefit-title">Controle de revenda</div>
+      <div class="benefit-desc">Margem por produto de revenda, giro de estoque, produtos que estão parados. Visão real do que vale a pena ter.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <div class="benefit-title">Receita por categoria</div>
+      <div class="benefit-desc">Banho e tosa vs. revenda vs. hotelaria — você sabe de onde vem o dinheiro e o que tem mais margem.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Como começa</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-text">
+        <div class="step-title">Me manda seus serviços e produtos</div>
+        <div class="step-desc">Lista de serviços que você oferece, insumos que usa e produtos que revende. Pelo WhatsApp mesmo.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-text">
+        <div class="step-title">Configuro o sistema para o seu petshop</div>
+        <div class="step-desc">Custo de cada insumo por serviço, estoque inicial, produtos de revenda com margem — tudo ajustado para a sua realidade.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-text">
+        <div class="step-title">Você começa a usar no mesmo dia</div>
+        <div class="step-desc">No celular ou computador. Simples, direto, sem instalação.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="cta-final">
+    <h3>Seu petshop merece número claro.</h3>
+    <p>Me chama no WhatsApp. Conversa rápida, sem compromisso — eu explico como funciona e você vê se faz sentido.</p>
+    <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Iniciar conversa</a>
+    <div class="author">
+      <img src="euPerfil.jpg" alt="Marcio Cunha" onerror="this.style.background='#1f1f1f'">
+      <div>
+        <div class="author-name">Márcio Cunha</div>
+        <div class="author-bio">8+ anos em automação industrial. Aplica a mesma lógica de controle e precisão em pequenos negócios.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
