@@ -2,384 +2,187 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Márcio Cunha</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcio Cunha</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  width: 100%; height: 100%;
+body {
   background: #06070b;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-.stage {
-  position: fixed; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* ═══════════════════════════════════════
-   CARD — dimensões landscape fixas: 600 × 300
-   O JS rotaciona + escala para caber na tela portrait
-═══════════════════════════════════════ */
+/* CARD RESPONSIVO */
 .card {
-  width: 600px;
-  height: 300px;
-  transform-origin: center center;
-  /* JS define o transform */
+  width: 92vw;
+  max-width: 600px;
+  aspect-ratio: 2 / 1;
 
   position: relative;
   background: #0c0d14;
   border-radius: 16px;
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
+
   box-shadow:
     0 0 0 1px rgba(232,160,32,0.20),
     0 20px 60px rgba(0,0,0,0.9);
 }
 
-/* ── Background: grade de circuito ── */
+/* BACKGROUND */
 .bg-grid {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  position: absolute; inset: 0;
   background-image:
     linear-gradient(rgba(232,160,32,.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(232,160,32,.07) 1px, transparent 1px);
   background-size: 30px 30px;
 }
-.bg-dots {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='1.1' fill='%23e8a020' opacity='0.15'/%3E%3C/svg%3E");
-  background-size: 30px 30px;
-}
-.bg-glow {
-  position: absolute; z-index: 0; pointer-events: none;
-  top: -80px; right: -80px;
-  width: 320px; height: 320px;
-  background: radial-gradient(circle, rgba(232,160,32,0.11) 0%, transparent 65%);
-}
 
-/* ── Scan line animada ── */
-.scan {
-  position: absolute; left: 0; right: 0; height: 1px; z-index: 1; pointer-events: none;
-  background: linear-gradient(90deg, transparent 0%, rgba(232,160,32,0.5) 50%, transparent 100%);
-  animation: scan 5s ease-in-out infinite;
-}
-@keyframes scan {
-  0%   { top: 8%;  opacity: 0; }
-  6%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { top: 88%; opacity: 0; }
-}
-
-/* ── Cantos ── */
-.cc { position: absolute; width: 12px; height: 12px; z-index: 5; pointer-events: none; }
-.cc.tl { top: 10px; left: 10px; border-top: 1px solid rgba(232,160,32,.5); border-left: 1px solid rgba(232,160,32,.5); }
-.cc.tr { top: 10px; right: 10px; border-top: 1px solid rgba(232,160,32,.5); border-right: 1px solid rgba(232,160,32,.5); }
-.cc.bl { bottom: 28px; left: 10px; border-bottom: 1px solid rgba(232,160,32,.5); border-left: 1px solid rgba(232,160,32,.5); }
-.cc.br { bottom: 28px; right: 10px; border-bottom: 1px solid rgba(232,160,32,.5); border-right: 1px solid rgba(232,160,32,.5); }
-
-/* ═══════════════════════════════════════
-   INNER LAYOUT: foto | info | separador | qr
-   Alturas somam 600px:
-     foto: 155px
-     info: flex (≈ 285px)
-     sep:  1px
-     qr:   160px
-═══════════════════════════════════════ */
+/* LAYOUT */
 .inner {
-  position: relative; z-index: 3;
-  width: 100%;
-  height: calc(100% - 22px); /* tira o ticker embaixo */
   display: flex;
-  align-items: stretch;
+  height: 100%;
 }
 
-/* ── FOTO (esquerda) ── */
+/* FOTO AJUSTADA */
 .col-photo {
-  width: 155px;
-  flex-shrink: 0;
+  width: 160px;
+  background: #12141e;
   position: relative;
   overflow: hidden;
-  background: #12141e;
-}
-.col-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-}
-.ph-placeholder {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 6px;
-}
-.ph-placeholder .phi { font-size: 32px; opacity: .18; }
-.ph-placeholder p {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
-  letter-spacing: .1em; color: rgba(255,255,255,.2); text-align: center;
-}
-/* Fade foto → fundo à direita */
-.col-photo::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to right, transparent 45%, #0c0d14 100%);
 }
 
-/* ── INFO (centro) ── */
+.col-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(0.9);
+}
+
+.col-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0) 30%, #0c0d14 100%);
+}
+
+/* INFO */
 .col-info {
   flex: 1;
-  padding: 18px 16px 16px 20px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  min-width: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: #e8a020; border: 1px solid rgba(232,160,32,.28);
-  background: rgba(232,160,32,.06); padding: 3px 7px; border-radius: 2px;
+  font-size: 8px;
+  color: #e8a020;
+  border: 1px solid rgba(232,160,32,.3);
+  padding: 4px 8px;
+  display: inline-block;
   margin-bottom: 8px;
 }
-.chip::before { content: '◆'; font-size: 5px; }
 
 .name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 42px; line-height: .88; letter-spacing: .02em;
-  color: #fff; margin-bottom: 6px;
+  font-family: 'Bebas Neue';
+  font-size: 36px;
+  color: #81b181;
 }
-.name em { font-style: normal; color: #e8a020; }
+
+.name em {
+  color: #81b181;
+  font-style: normal;
+}
 
 .role {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7.5px;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.30); margin-bottom: 10px; line-height: 1.6;
+  font-size: 10px;
+  color: rgba(255,255,255,.4);
+  margin: 8px 0;
 }
 
 .tagline {
-  font-size: 10.5px; color: rgba(255,255,255,.45); line-height: 1.6;
+  font-size: 11px;
+  color: rgba(255,255,255,.5);
 }
 
-.contacts { display: flex; flex-direction: column; gap: 5px; }
-.crow {
-  display: flex; align-items: center; gap: 6px;
-  text-decoration: none;
-}
-.cicon {
-  width: 18px; height: 18px; flex-shrink: 0;
-  background: rgba(232,160,32,.10); border: 1px solid rgba(232,160,32,.22);
-  border-radius: 2px; display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-}
-.ctext {
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-  letter-spacing: .05em; color: rgba(255,255,255,.40);
-}
-
-/* ── SEPARADOR VERTICAL ── */
-.col-sep {
-  width: 1px; flex-shrink: 0;
-  background: linear-gradient(to bottom,
-    transparent,
-    rgba(232,160,32,.22) 20%,
-    rgba(232,160,32,.22) 80%,
-    transparent);
-  margin: 18px 0;
-}
-
-/* ── QR (direita) ── */
+/* QR */
 .col-qr {
-  width: 160px; flex-shrink: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 10px;
-  padding: 16px 18px 16px 14px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .qr-frame {
-  width: 118px; height: 118px;
+  width: 180px;
+  height: 180px;
   background: #fff;
-  border-radius: 6px;
   padding: 5px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  box-shadow: 0 0 0 1px rgba(232,160,32,.3);
+  border-radius: 6px;
 }
-.qr-frame img {
-  width: 100%; height: 100%;
-  object-fit: contain; display: block; border-radius: 3px;
-}
-.qr-empty {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-}
-.qr-empty .qi { font-size: 38px; opacity: .22; color: #333; }
-.qr-empty p { font-family: 'IBM Plex Mono', monospace; font-size: 7px; color: #888; text-align: center; line-height: 1.4; }
 
-/* Cantos dourados no QR */
-.qc { position: absolute; width: 10px; height: 10px; }
-.qc.tl { top: -2px; left: -2px; border-top: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 2px 0 0 0; }
-.qc.tr { top: -2px; right: -2px; border-top: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 2px 0 0; }
-.qc.bl { bottom: -2px; left: -2px; border-bottom: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 0 0 0 2px; }
-.qc.br { bottom: -2px; right: -2px; border-bottom: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 0 2px 0; }
+.qr-frame img {
+  width: 100%;
+  height: 100%;
+}
 
 .qr-label {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: rgba(255,255,255,.28); text-align: center; line-height: 1.55;
+  font-size: 9px;
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  margin-top: 8px;
 }
-.qr-label strong { color: #e8a020; display: block; font-size: 9px; margin-bottom: 1px; }
-
-/* ── TICKER STRIP ── */
-.strip {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
-  height: 22px; overflow: hidden;
-  border-top: 1px solid rgba(232,160,32,.09);
-  background: rgba(0,0,0,.4);
-  display: flex; align-items: center;
-}
-.ticker {
-  display: flex; white-space: nowrap;
-  animation: tick 24s linear infinite;
-}
-.ticker span {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
-  letter-spacing: .12em; color: rgba(255,255,255,.20);
-  padding: 0 18px;
-}
-.ticker span.hi { color: rgba(232,160,32,.7); }
-@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 </style>
 </head>
+
 <body>
 
-<div class="stage">
-  <div class="card" id="card">
+<div class="card">
+  <div class="bg-grid"></div>
 
-    <div class="bg-grid"></div>
-    <div class="bg-dots"></div>
-    <div class="bg-glow"></div>
-    <div class="scan"></div>
-    <div class="cc tl"></div>
-    <div class="cc tr"></div>
-    <div class="cc bl"></div>
-    <div class="cc br"></div>
+  <div class="inner">
 
-    <div class="inner">
+    <!-- FOTO -->
+    <div class="col-photo">
+      <img src="euSemFundo.png" alt="Márcio">
+    </div>
 
-      <!-- FOTO -->
-      <div class="col-photo">
-        <img src="euSemFundo.png" alt="Márcio Cunha"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="ph-placeholder" style="display:none">
-          <div class="phi">👤</div>
-          <p>euSemFundo.png</p>
+    <!-- INFO -->
+    <div class="col-info">
+      <div>
+        <div class="chip">Soluções Digitais</div>
+        <div class="name">Marcio Cunha</div>
+        <div class="role">
+          Especialista em sistemas & automação<br>
+          Pequenos negócios
+        </div>
+        <div class="tagline">
+          Do controle industrial à clareza financeira.
         </div>
       </div>
+    </div>
 
-      <!-- INFO -->
-      <div class="col-info">
-        <div>
-          <div class="chip">Soluções Digitais</div>
-          <div class="name">Márcio <em>Cunha</em></div>
-          <div class="role">
-            Especialista em sistemas &amp; automação<br>
-            Soluções para pequenos negócios
-          </div>
-          <div class="tagline">
-            Do controle industrial à<br>clareza financeira do seu negócio.
-          </div>
-        </div>
-        <div class="contacts">
-          <a class="crow" href="https://wa.me/5511970696387">
-            <div class="cicon">💬</div>
-            <div class="ctext">(11) 97069-6387</div>
-          </a>
-          <a class="crow" href="mailto:seu@email.com">
-            <div class="cicon">✉️</div>
-            <div class="ctext">seu@email.com</div>
-          </a>
-          <a class="crow" href="https://linkedin.com/in/seuperfil" target="_blank">
-            <div class="cicon">🔗</div>
-            <div class="ctext">linkedin.com/in/seuperfil</div>
-          </a>
-        </div>
+    <!-- QR -->
+    <div class="col-qr">
+      <div class="qr-frame">
+        <img src="qrcode.png">
       </div>
-
-      <!-- SEP -->
-      <div class="col-sep"></div>
-
-      <!-- QR -->
-      <div class="col-qr">
-        <div class="qr-frame">
-          <div class="qc tl"></div>
-          <div class="qc tr"></div>
-          <div class="qc bl"></div>
-          <div class="qc br"></div>
-          <img src="qrcode.png" alt="QR Code"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="qr-empty" style="display:none">
-            <div class="qi">▦</div>
-            <p>qrcode.png</p>
-          </div>
-        </div>
-        <div class="qr-label">
-          <strong>Aponte a câmera</strong>
-          e acesse os sistemas
-        </div>
-      </div>
-
-    </div><!-- /.inner -->
-
-    <!-- TICKER -->
-    <div class="strip">
-      <div class="ticker">
-        <span class="hi">Confeitaria</span><span>·</span>
-        <span>Pizzaria</span><span>·</span>
-        <span class="hi">Salão</span><span>·</span>
-        <span>Petshop</span><span>·</span>
-        <span class="hi">Precificação inteligente</span><span>·</span>
-        <span>Controle de estoque</span><span>·</span>
-        <span class="hi">Custo real por produto</span><span>·</span>
-        <span>8+ anos na indústria</span><span>·</span>
-        <span class="hi">Confeitaria</span><span>·</span>
-        <span>Pizzaria</span><span>·</span>
-        <span class="hi">Salão</span><span>·</span>
-        <span>Petshop</span><span>·</span>
-        <span class="hi">Precificação inteligente</span><span>·</span>
-        <span>Controle de estoque</span><span>·</span>
-        <span class="hi">Custo real por produto</span><span>·</span>
-        <span>8+ anos na indústria</span><span>·</span>
+      <div class="qr-label">
+        Aponte a câmera
       </div>
     </div>
 
   </div>
 </div>
-
-<script>
-/*
-  O card é 600×300 (landscape).
-  Ao girar 90°, sua pegada visual vira 300px largo × 600px alto.
-  Calculamos o scale para que essa pegada caiba na tela portrait,
-  com 90% de aproveitamento para dar uma margem visual.
-*/
-function fit() {
-  var card = document.getElementById('card');
-  var W = window.innerWidth;
-  var H = window.innerHeight;
-
-  /* após rotação: largura visual = 300, altura visual = 600 */
-  var scaleW = W / 300;
-  var scaleH = H / 600;
-  var s = Math.min(scaleW, scaleH) * 0.90;
-
-  card.style.transform = 'rotate(90deg) scale(' + s + ')';
-}
-
-fit();
-window.addEventListener('resize', fit);
-</script>
 
 </body>
 </html>
