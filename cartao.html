@@ -3,389 +3,371 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Marcio Cunha</title>
+<title>Márcio Cunha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
   width: 100%; height: 100%;
-  background: #08090d;
   overflow: hidden;
-  touch-action: none;
+  background: #06070b;
 }
 
-/* ─── STAGE: fills portrait viewport, content rotated inside ─── */
+/* ──────────────────────────────────────────
+   STAGE: centraliza o card na tela portrait
+────────────────────────────────────────── */
 .stage {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
 }
 
-/*
-  The card is designed at 640×340 (landscape dimensions).
-  We rotate it 90° clockwise so it sits "landscape" on a portrait screen.
-  We then scale it to fit within the viewport using vmin/vmax.
-*/
+/* ──────────────────────────────────────────
+   CARD
+   Trick: o card é desenhado no eixo landscape.
+   Largura = 96vh  (o height da tela portrait vira a largura do card)
+   Altura  = 94vw  (o width da tela portrait vira a altura do card)
+   Depois rotacionamos 90° — ele encaixa perfeitamente.
+────────────────────────────────────────── */
 .card {
-  width: 640px;
-  height: 340px;
-
-  /* Rotate to simulate landscape */
+  width: 96vh;
+  height: 94vw;
   transform: rotate(90deg);
-
-  /* Scale to fill the screen nicely — 96vmin fits portrait screens */
   transform-origin: center center;
-  transform: rotate(90deg) scale(var(--card-scale, 1));
 
-  position: relative;
-  background: #0d0e14;
-  border-radius: 18px;
+  background: #0d0e16;
+  border-radius: 3vw;
   overflow: hidden;
+  position: relative;
   font-family: 'IBM Plex Sans', sans-serif;
-  box-shadow: 0 0 0 1px rgba(232,160,32,0.15), 0 40px 80px rgba(0,0,0,0.8);
+  box-shadow:
+    0 0 0 1px rgba(232,160,32,0.18),
+    0 6vw 14vw rgba(0,0,0,0.85);
 }
 
-/* ─── BACKGROUND TEXTURE ─── */
-.card-bg-grid {
+/* ── BG: grade de circuito ── */
+.bg-grid {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(232,160,32,.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,160,32,.055) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(232,160,32,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,160,32,.06) 1px, transparent 1px);
+  background-size: 5vh 5vh;
 }
-.card-bg-dots {
+.bg-dots {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.2' fill='%23e8a020' opacity='0.13'/%3E%3C/svg%3E");
-  background-size: 40px 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.3' fill='%23e8a020' opacity='0.14'/%3E%3C/svg%3E");
+  background-size: 5vh 5vh;
 }
-.card-glow {
+.bg-glow {
   position: absolute; z-index: 0; pointer-events: none;
-  top: -60px; right: -60px;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(232,160,32,0.10) 0%, transparent 65%);
+  top: -8vh; right: -8vh;
+  width: 40vh; height: 40vh;
+  background: radial-gradient(circle, rgba(232,160,32,0.12) 0%, transparent 65%);
 }
-.card-glow2 {
+.bg-glow2 {
   position: absolute; z-index: 0; pointer-events: none;
-  bottom: -40px; left: 180px;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(232,160,32,0.05) 0%, transparent 65%);
+  bottom: -4vh; left: 30%;
+  width: 26vh; height: 26vh;
+  background: radial-gradient(circle, rgba(232,160,32,0.06) 0%, transparent 65%);
 }
 
-/* Animated scan line */
-.card-scan {
+/* ── Scan line ── */
+.scan {
   position: absolute; left: 0; right: 0; height: 1px; z-index: 1; pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(232,160,32,0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232,160,32,0.4), transparent);
   animation: scan 5s ease-in-out infinite;
 }
 @keyframes scan {
-  0%   { top: 10%; opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { top: 90%; opacity: 0; }
+  0%   { top: 8%; opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { top: 88%; opacity: 0; }
 }
 
-/* Corner brackets */
-.cc { position: absolute; width: 14px; height: 14px; z-index: 2; pointer-events: none; }
-.cc.tl { top: 12px; left: 12px; border-top: 1px solid rgba(232,160,32,.4); border-left: 1px solid rgba(232,160,32,.4); }
-.cc.tr { top: 12px; right: 12px; border-top: 1px solid rgba(232,160,32,.4); border-right: 1px solid rgba(232,160,32,.4); }
-.cc.bl { bottom: 12px; left: 12px; border-bottom: 1px solid rgba(232,160,32,.4); border-left: 1px solid rgba(232,160,32,.4); }
-.cc.br { bottom: 12px; right: 12px; border-bottom: 1px solid rgba(232,160,32,.4); border-right: 1px solid rgba(232,160,32,.4); }
+/* ── Corner brackets ── */
+.cc { position: absolute; width: 1.8vh; height: 1.8vh; z-index: 2; pointer-events: none; }
+.cc.tl { top: 1.4vh; left: 1.4vh; border-top: 1px solid rgba(232,160,32,.45); border-left: 1px solid rgba(232,160,32,.45); }
+.cc.tr { top: 1.4vh; right: 1.4vh; border-top: 1px solid rgba(232,160,32,.45); border-right: 1px solid rgba(232,160,32,.45); }
+.cc.bl { bottom: 3.5vh; left: 1.4vh; border-bottom: 1px solid rgba(232,160,32,.45); border-left: 1px solid rgba(232,160,32,.45); }
+.cc.br { bottom: 3.5vh; right: 1.4vh; border-bottom: 1px solid rgba(232,160,32,.45); border-right: 1px solid rgba(232,160,32,.45); }
 
-/* ─── LAYOUT: left photo | center info | right QR ─── */
-.card-inner {
+/* ──────────────────────────────────────────
+   INNER LAYOUT: foto | info | divider | qr
+────────────────────────────────────────── */
+.inner {
   position: relative; z-index: 3;
-  width: 100%; height: 100%;
+  width: 100%; height: calc(100% - 3.2vh); /* leave space for strip */
   display: flex;
   align-items: stretch;
 }
 
-/* LEFT — Photo */
+/* ── FOTO ── */
 .col-photo {
-  width: 200px;
+  width: 28vh;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
 }
 .col-photo img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: cover; object-position: top center;
   display: block;
-  filter: grayscale(20%) contrast(1.05);
 }
 .col-photo-ph {
   width: 100%; height: 100%;
-  background: #161820;
+  background: #14161f;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 8px;
+  align-items: center; justify-content: center; gap: 1vh;
 }
-.col-photo-ph .ph-icon { font-size: 36px; opacity: .2; }
+.col-photo-ph .phi { font-size: 4vh; opacity: .18; }
 .col-photo-ph p {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 1vh;
   letter-spacing: .1em; color: rgba(255,255,255,.2); text-align: center;
 }
-
-/* Overlay gradient on photo — fades into center */
+/* Fade foto → fundo */
 .col-photo::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to right, transparent 55%, #0d0e14 100%);
+  background: linear-gradient(to right, rgba(13,14,22,0) 50%, #0d0e16 100%);
 }
 
-/* CENTER — Info */
+/* ── INFO ── */
 .col-info {
   flex: 1;
-  padding: 22px 20px 22px 24px;
+  padding: 2.4vh 2vh 2.4vh 2.6vh;
   display: flex; flex-direction: column; justify-content: space-between;
+  min-width: 0;
 }
 
-.info-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 7.5px;
+.chip {
+  display: inline-flex; align-items: center; gap: .6vh;
+  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
   letter-spacing: .16em; text-transform: uppercase;
   color: #e8a020; border: 1px solid rgba(232,160,32,.28);
-  background: rgba(232,160,32,.06); padding: 3px 8px; border-radius: 2px;
-  margin-bottom: 10px;
+  background: rgba(232,160,32,.06); padding: .4vh 1vh; border-radius: 2px;
+  margin-bottom: 1.2vh;
 }
-.info-chip::before { content: '◆'; font-size: 5px; }
+.chip::before { content: '◆'; font-size: .7vh; }
 
-.info-name {
+.name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 38px; line-height: .92; letter-spacing: .03em;
-  color: #ffffff; margin-bottom: 6px;
+  font-size: 5.5vh; line-height: .9; letter-spacing: .02em;
+  color: #fff; margin-bottom: .8vh;
 }
-.info-name em { font-style: normal; color: #e8a020; display: block; }
+.name em { font-style: normal; color: #e8a020; }
 
-.info-role {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: rgba(255,255,255,.35); margin-bottom: 14px; line-height: 1.5;
-}
-
-.info-tagline {
-  font-size: 11px; color: rgba(255,255,255,.5); line-height: 1.6;
-  max-width: 200px;
+.role {
+  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.32); margin-bottom: 1.6vh; line-height: 1.6;
 }
 
-/* Contact */
-.info-contacts { display: flex; flex-direction: column; gap: 6px; }
-.contact-row {
-  display: flex; align-items: center; gap: 7px;
+.tagline {
+  font-size: 1.35vh; color: rgba(255,255,255,.48); line-height: 1.65;
+}
+
+/* Contacts */
+.contacts { display: flex; flex-direction: column; gap: .8vh; }
+.crow {
+  display: flex; align-items: center; gap: .9vh;
   text-decoration: none;
 }
-.contact-icon {
-  width: 18px; height: 18px;
-  background: rgba(232,160,32,.10); border: 1px solid rgba(232,160,32,.20);
+.cicon {
+  width: 2.4vh; height: 2.4vh; flex-shrink: 0;
+  background: rgba(232,160,32,.10); border: 1px solid rgba(232,160,32,.22);
   border-radius: 2px; display: flex; align-items: center; justify-content: center;
-  font-size: 9px; flex-shrink: 0;
+  font-size: 1.2vh;
 }
-.contact-text {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8.5px;
-  letter-spacing: .06em; color: rgba(255,255,255,.45);
-}
-
-/* Divider */
-.col-divider {
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(232,160,32,.2) 30%, rgba(232,160,32,.2) 70%, transparent);
-  margin: 20px 0;
-  flex-shrink: 0;
+.ctext {
+  font-family: 'IBM Plex Mono', monospace; font-size: 1.1vh;
+  letter-spacing: .05em; color: rgba(255,255,255,.42);
 }
 
-/* RIGHT — QR */
+/* ── DIVIDER ── */
+.col-div {
+  width: 1px; flex-shrink: 0;
+  background: linear-gradient(to bottom, transparent, rgba(232,160,32,.22) 25%, rgba(232,160,32,.22) 75%, transparent);
+  margin: 2.4vh 0;
+}
+
+/* ── QR ── */
 .col-qr {
-  width: 180px;
-  flex-shrink: 0;
+  width: 28vh; flex-shrink: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 10px;
-  padding: 20px 20px 20px 16px;
+  gap: 1.4vh;
+  padding: 2vh 2.4vh 2vh 1.8vh;
 }
 
-.qr-wrap {
-  width: 130px; height: 130px;
+.qr-frame {
+  width: 21vh; height: 21vh;
   background: #ffffff;
-  border-radius: 8px;
-  padding: 6px;
+  border-radius: 1.2vh;
+  padding: .7vh;
   display: flex; align-items: center; justify-content: center;
   position: relative;
+  box-shadow: 0 0 0 1px rgba(232,160,32,.25);
 }
-.qr-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 4px; }
+.qr-frame img {
+  width: 100%; height: 100%;
+  object-fit: contain; display: block; border-radius: .6vh;
+}
+
+/* QR placeholder when image missing */
 .qr-ph {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  display: flex; flex-direction: column; align-items: center; gap: .6vh;
 }
-.qr-ph .qi { font-size: 40px; opacity: .25; }
-.qr-ph p {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
-  color: #999; text-align: center; line-height: 1.4;
-}
+.qr-ph .qi { font-size: 5vh; opacity: .22; color: #333; }
+.qr-ph p { font-family: 'IBM Plex Mono', monospace; font-size: .85vh; color: #999; text-align: center; line-height: 1.4; }
 
-/* Corner decorations on QR box */
-.qr-corner { position: absolute; width: 8px; height: 8px; }
-.qr-corner.tl { top: -1px; left: -1px; border-top: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 2px 0 0 0; }
-.qr-corner.tr { top: -1px; right: -1px; border-top: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 2px 0 0; }
-.qr-corner.bl { bottom: -1px; left: -1px; border-bottom: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 0 0 0 2px; }
-.qr-corner.br { bottom: -1px; right: -1px; border-bottom: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 0 2px 0; }
+/* Gold corner marks on QR */
+.qc { position: absolute; width: 1.2vh; height: 1.2vh; }
+.qc.tl { top: -.1vh; left: -.1vh; border-top: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: .3vh 0 0 0; }
+.qc.tr { top: -.1vh; right: -.1vh; border-top: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 .3vh 0 0; }
+.qc.bl { bottom: -.1vh; left: -.1vh; border-bottom: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 0 0 0 .3vh; }
+.qc.br { bottom: -.1vh; right: -.1vh; border-bottom: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 0 .3vh 0; }
 
-.qr-cta {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7.5px;
+.qr-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
   letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); text-align: center; line-height: 1.5;
+  color: rgba(255,255,255,.28); text-align: center; line-height: 1.6;
 }
-.qr-cta strong { color: #e8a020; display: block; font-size: 8.5px; margin-bottom: 2px; }
+.qr-label strong { color: #e8a020; display: block; font-size: 1.05vh; margin-bottom: .2vh; }
 
-/* ─── BOTTOM STRIP ─── */
-.card-strip {
+/* ── TICKER STRIP ── */
+.strip {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
-  height: 22px; overflow: hidden;
+  height: 3.2vh; overflow: hidden;
   border-top: 1px solid rgba(232,160,32,.08);
-  background: rgba(0,0,0,.3);
-  display: flex;
+  background: rgba(0,0,0,.35);
+  display: flex; align-items: center;
 }
-.strip-ticker {
+.ticker {
   display: flex; white-space: nowrap;
-  animation: tick 20s linear infinite;
+  animation: tick 22s linear infinite;
 }
-.strip-ticker span {
-  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
-  letter-spacing: .13em; color: rgba(255,255,255,.20);
-  padding: 5px 16px;
+.ticker span {
+  font-family: 'IBM Plex Mono', monospace; font-size: .85vh;
+  letter-spacing: .12em; color: rgba(255,255,255,.2);
+  padding: 0 2.2vh;
 }
-.strip-ticker span.hi { color: rgba(232,160,32,.6); }
+.ticker span.hi { color: rgba(232,160,32,.65); }
 @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 </style>
 </head>
 <body>
 
 <div class="stage">
-  <div class="card" id="card">
+  <div class="card">
 
-    <!-- Backgrounds -->
-    <div class="card-bg-grid"></div>
-    <div class="card-bg-dots"></div>
-    <div class="card-glow"></div>
-    <div class="card-glow2"></div>
-    <div class="card-scan"></div>
+    <!-- BG -->
+    <div class="bg-grid"></div>
+    <div class="bg-dots"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow2"></div>
+    <div class="scan"></div>
 
-    <!-- Corner brackets -->
+    <!-- Corners -->
     <div class="cc tl"></div>
     <div class="cc tr"></div>
     <div class="cc bl"></div>
     <div class="cc br"></div>
 
-    <!-- Layout -->
-    <div class="card-inner">
+    <!-- INNER -->
+    <div class="inner">
 
       <!-- FOTO -->
       <div class="col-photo">
-        <img src="euSemFundo.png" alt="Marcio Cunha"
+        <img src="euSemFundo.png" alt="Márcio Cunha"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="col-photo-ph" style="display:none">
+          <div class="phi">👤</div>
+          <p>euSemFundo.png</p>
+        </div>
       </div>
 
       <!-- INFO -->
       <div class="col-info">
-        <div class="info-top">
-          <div class="info-chip">Soluções Digitais</div>
-          <div class="info-name">
-            Márcio<br>
-            <em>Cunha</em>
-          </div>
-          <div class="info-role">
+        <div>
+          <div class="chip">Soluções Digitais</div>
+          <div class="name">Márcio <em>Cunha</em></div>
+          <div class="role">
             Especialista em sistemas &amp; automação<br>
             Soluções para pequenos negócios
           </div>
-          <div class="info-tagline">
-            Do controle industrial à clareza financeira do seu negócio.
+          <div class="tagline">
+            Do controle industrial à clareza<br>financeira do seu negócio.
           </div>
         </div>
 
-        <div class="info-contacts">
-          <a class="contact-row" href="https://wa.me/5511970696387">
-            <div class="contact-icon">💬</div>
-            <div class="contact-text">(11) 97069-6387</div>
+        <div class="contacts">
+          <a class="crow" href="https://wa.me/5511970696387">
+            <div class="cicon">💬</div>
+            <div class="ctext">(11) 97069-6387</div>
           </a>
-          <a class="contact-row" href="mailto:seu@email.com">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-text">seu@email.com</div>
+          <a class="crow" href="mailto:seu@email.com">
+            <div class="cicon">✉️</div>
+            <div class="ctext">seu@email.com</div>
           </a>
-          <a class="contact-row" href="https://linkedin.com/in/seuperfil" target="_blank">
-            <div class="contact-icon">🔗</div>
-            <div class="contact-text">linkedin.com/in/seuperfil</div>
+          <a class="crow" href="https://linkedin.com/in/seuperfil" target="_blank">
+            <div class="cicon">🔗</div>
+            <div class="ctext">linkedin.com/in/seuperfil</div>
           </a>
         </div>
       </div>
 
       <!-- DIVIDER -->
-      <div class="col-divider"></div>
+      <div class="col-div"></div>
 
-      <!-- QR CODE -->
+      <!-- QR -->
       <div class="col-qr">
-        <div class="qr-wrap">
-          <div class="qr-corner tl"></div>
-          <div class="qr-corner tr"></div>
-          <div class="qr-corner bl"></div>
-          <div class="qr-corner br"></div>
+        <div class="qr-frame">
+          <div class="qc tl"></div>
+          <div class="qc tr"></div>
+          <div class="qc bl"></div>
+          <div class="qc br"></div>
           <img src="qrcode.png" alt="QR Code"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="qr-ph" style="display:none">
             <div class="qi">▦</div>
-            <p>coloque<br>qrcode.png</p>
+            <p>qrcode.png</p>
           </div>
         </div>
-        <div class="qr-cta">
+        <div class="qr-label">
           <strong>Aponte a câmera</strong>
-          e veja os sistemas
+          e acesse os sistemas
         </div>
       </div>
 
-    </div><!-- /.card-inner -->
+    </div><!-- /.inner -->
 
-    <!-- Bottom strip ticker -->
-    <div class="card-strip">
-      <div class="strip-ticker">
+    <!-- TICKER -->
+    <div class="strip">
+      <div class="ticker">
         <span class="hi">Confeitaria</span><span>·</span>
         <span>Pizzaria</span><span>·</span>
         <span class="hi">Salão</span><span>·</span>
         <span>Petshop</span><span>·</span>
-        <span class="hi">Precificação</span><span>·</span>
+        <span class="hi">Precificação inteligente</span><span>·</span>
         <span>Controle de estoque</span><span>·</span>
         <span class="hi">Custo real por produto</span><span>·</span>
         <span>Comissões automáticas</span><span>·</span>
+        <span class="hi">8+ anos na indústria</span><span>·</span>
         <span class="hi">Confeitaria</span><span>·</span>
         <span>Pizzaria</span><span>·</span>
         <span class="hi">Salão</span><span>·</span>
         <span>Petshop</span><span>·</span>
-        <span class="hi">Precificação</span><span>·</span>
+        <span class="hi">Precificação inteligente</span><span>·</span>
         <span>Controle de estoque</span><span>·</span>
         <span class="hi">Custo real por produto</span><span>·</span>
         <span>Comissões automáticas</span><span>·</span>
+        <span class="hi">8+ anos na indústria</span><span>·</span>
       </div>
     </div>
 
   </div><!-- /.card -->
 </div><!-- /.stage -->
 
-<script>
-// Scale the card to fit the portrait viewport perfectly
-function fitCard() {
-  var card = document.getElementById('card');
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-
-  // Card is 640×340 but rotated 90°, so its footprint becomes 340×640
-  // We want 340 (card height) ≤ vw  and  640 (card width) ≤ vh
-  var scaleX = vw / 340;
-  var scaleY = vh / 640;
-  var scale  = Math.min(scaleX, scaleY) * 0.96;
-
-  card.style.transform = 'rotate(90deg) scale(' + scale + ')';
-}
-fitCard();
-window.addEventListener('resize', fitCard);
-</script>
 </body>
 </html>
