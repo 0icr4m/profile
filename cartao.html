@@ -11,277 +11,268 @@
 
 html, body {
   width: 100%; height: 100%;
-  overflow: hidden;
   background: #06070b;
+  overflow: hidden;
 }
 
-/* ──────────────────────────────────────────
-   STAGE: centraliza o card na tela portrait
-────────────────────────────────────────── */
 .stage {
   position: fixed; inset: 0;
   display: flex; align-items: center; justify-content: center;
 }
 
-/* ──────────────────────────────────────────
-   CARD
-   Trick: o card é desenhado no eixo landscape.
-   Largura = 96vh  (o height da tela portrait vira a largura do card)
-   Altura  = 94vw  (o width da tela portrait vira a altura do card)
-   Depois rotacionamos 90° — ele encaixa perfeitamente.
-────────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   CARD — dimensões landscape fixas: 600 × 300
+   O JS rotaciona + escala para caber na tela portrait
+═══════════════════════════════════════ */
 .card {
-  width: 96vh;
-  height: 94vw;
-  transform: rotate(90deg);
+  width: 600px;
+  height: 300px;
   transform-origin: center center;
+  /* JS define o transform */
 
-  background: #0d0e16;
-  border-radius: 3vw;
-  overflow: hidden;
   position: relative;
+  background: #0c0d14;
+  border-radius: 16px;
+  overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
   box-shadow:
-    0 0 0 1px rgba(232,160,32,0.18),
-    0 6vw 14vw rgba(0,0,0,0.85);
+    0 0 0 1px rgba(232,160,32,0.20),
+    0 20px 60px rgba(0,0,0,0.9);
 }
 
-/* ── BG: grade de circuito ── */
+/* ── Background: grade de circuito ── */
 .bg-grid {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(232,160,32,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,160,32,.06) 1px, transparent 1px);
-  background-size: 5vh 5vh;
+    linear-gradient(rgba(232,160,32,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,160,32,.07) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 .bg-dots {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.3' fill='%23e8a020' opacity='0.14'/%3E%3C/svg%3E");
-  background-size: 5vh 5vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='1.1' fill='%23e8a020' opacity='0.15'/%3E%3C/svg%3E");
+  background-size: 30px 30px;
 }
 .bg-glow {
   position: absolute; z-index: 0; pointer-events: none;
-  top: -8vh; right: -8vh;
-  width: 40vh; height: 40vh;
-  background: radial-gradient(circle, rgba(232,160,32,0.12) 0%, transparent 65%);
-}
-.bg-glow2 {
-  position: absolute; z-index: 0; pointer-events: none;
-  bottom: -4vh; left: 30%;
-  width: 26vh; height: 26vh;
-  background: radial-gradient(circle, rgba(232,160,32,0.06) 0%, transparent 65%);
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(232,160,32,0.11) 0%, transparent 65%);
 }
 
-/* ── Scan line ── */
+/* ── Scan line animada ── */
 .scan {
   position: absolute; left: 0; right: 0; height: 1px; z-index: 1; pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(232,160,32,0.4), transparent);
+  background: linear-gradient(90deg, transparent 0%, rgba(232,160,32,0.5) 50%, transparent 100%);
   animation: scan 5s ease-in-out infinite;
 }
 @keyframes scan {
-  0%   { top: 8%; opacity: 0; }
+  0%   { top: 8%;  opacity: 0; }
   6%   { opacity: 1; }
   94%  { opacity: 1; }
   100% { top: 88%; opacity: 0; }
 }
 
-/* ── Corner brackets ── */
-.cc { position: absolute; width: 1.8vh; height: 1.8vh; z-index: 2; pointer-events: none; }
-.cc.tl { top: 1.4vh; left: 1.4vh; border-top: 1px solid rgba(232,160,32,.45); border-left: 1px solid rgba(232,160,32,.45); }
-.cc.tr { top: 1.4vh; right: 1.4vh; border-top: 1px solid rgba(232,160,32,.45); border-right: 1px solid rgba(232,160,32,.45); }
-.cc.bl { bottom: 3.5vh; left: 1.4vh; border-bottom: 1px solid rgba(232,160,32,.45); border-left: 1px solid rgba(232,160,32,.45); }
-.cc.br { bottom: 3.5vh; right: 1.4vh; border-bottom: 1px solid rgba(232,160,32,.45); border-right: 1px solid rgba(232,160,32,.45); }
+/* ── Cantos ── */
+.cc { position: absolute; width: 12px; height: 12px; z-index: 5; pointer-events: none; }
+.cc.tl { top: 10px; left: 10px; border-top: 1px solid rgba(232,160,32,.5); border-left: 1px solid rgba(232,160,32,.5); }
+.cc.tr { top: 10px; right: 10px; border-top: 1px solid rgba(232,160,32,.5); border-right: 1px solid rgba(232,160,32,.5); }
+.cc.bl { bottom: 28px; left: 10px; border-bottom: 1px solid rgba(232,160,32,.5); border-left: 1px solid rgba(232,160,32,.5); }
+.cc.br { bottom: 28px; right: 10px; border-bottom: 1px solid rgba(232,160,32,.5); border-right: 1px solid rgba(232,160,32,.5); }
 
-/* ──────────────────────────────────────────
-   INNER LAYOUT: foto | info | divider | qr
-────────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   INNER LAYOUT: foto | info | separador | qr
+   Alturas somam 600px:
+     foto: 155px
+     info: flex (≈ 285px)
+     sep:  1px
+     qr:   160px
+═══════════════════════════════════════ */
 .inner {
   position: relative; z-index: 3;
-  width: 100%; height: calc(100% - 3.2vh); /* leave space for strip */
+  width: 100%;
+  height: calc(100% - 22px); /* tira o ticker embaixo */
   display: flex;
   align-items: stretch;
 }
 
-/* ── FOTO ── */
+/* ── FOTO (esquerda) ── */
 .col-photo {
-  width: 28vh;
+  width: 155px;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  background: #12141e;
 }
 .col-photo img {
   width: 100%; height: 100%;
-  object-fit: cover; object-position: top center;
+  object-fit: cover;
+  object-position: top center;
   display: block;
 }
-.col-photo-ph {
+.ph-placeholder {
   width: 100%; height: 100%;
-  background: #14161f;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 1vh;
+  align-items: center; justify-content: center; gap: 6px;
 }
-.col-photo-ph .phi { font-size: 4vh; opacity: .18; }
-.col-photo-ph p {
-  font-family: 'IBM Plex Mono', monospace; font-size: 1vh;
+.ph-placeholder .phi { font-size: 32px; opacity: .18; }
+.ph-placeholder p {
+  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
   letter-spacing: .1em; color: rgba(255,255,255,.2); text-align: center;
 }
-/* Fade foto → fundo */
+/* Fade foto → fundo à direita */
 .col-photo::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(13,14,22,0) 50%, #0d0e16 100%);
+  background: linear-gradient(to right, transparent 45%, #0c0d14 100%);
 }
 
-/* ── INFO ── */
+/* ── INFO (centro) ── */
 .col-info {
   flex: 1;
-  padding: 2.4vh 2vh 2.4vh 2.6vh;
+  padding: 18px 16px 16px 20px;
   display: flex; flex-direction: column; justify-content: space-between;
   min-width: 0;
 }
 
 .chip {
-  display: inline-flex; align-items: center; gap: .6vh;
-  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
   letter-spacing: .16em; text-transform: uppercase;
   color: #e8a020; border: 1px solid rgba(232,160,32,.28);
-  background: rgba(232,160,32,.06); padding: .4vh 1vh; border-radius: 2px;
-  margin-bottom: 1.2vh;
+  background: rgba(232,160,32,.06); padding: 3px 7px; border-radius: 2px;
+  margin-bottom: 8px;
 }
-.chip::before { content: '◆'; font-size: .7vh; }
+.chip::before { content: '◆'; font-size: 5px; }
 
 .name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 5.5vh; line-height: .9; letter-spacing: .02em;
-  color: #fff; margin-bottom: .8vh;
+  font-size: 42px; line-height: .88; letter-spacing: .02em;
+  color: #fff; margin-bottom: 6px;
 }
 .name em { font-style: normal; color: #e8a020; }
 
 .role {
-  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
+  font-family: 'IBM Plex Mono', monospace; font-size: 7.5px;
   letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.32); margin-bottom: 1.6vh; line-height: 1.6;
+  color: rgba(255,255,255,.30); margin-bottom: 10px; line-height: 1.6;
 }
 
 .tagline {
-  font-size: 1.35vh; color: rgba(255,255,255,.48); line-height: 1.65;
+  font-size: 10.5px; color: rgba(255,255,255,.45); line-height: 1.6;
 }
 
-/* Contacts */
-.contacts { display: flex; flex-direction: column; gap: .8vh; }
+.contacts { display: flex; flex-direction: column; gap: 5px; }
 .crow {
-  display: flex; align-items: center; gap: .9vh;
+  display: flex; align-items: center; gap: 6px;
   text-decoration: none;
 }
 .cicon {
-  width: 2.4vh; height: 2.4vh; flex-shrink: 0;
+  width: 18px; height: 18px; flex-shrink: 0;
   background: rgba(232,160,32,.10); border: 1px solid rgba(232,160,32,.22);
   border-radius: 2px; display: flex; align-items: center; justify-content: center;
-  font-size: 1.2vh;
+  font-size: 9px;
 }
 .ctext {
-  font-family: 'IBM Plex Mono', monospace; font-size: 1.1vh;
-  letter-spacing: .05em; color: rgba(255,255,255,.42);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: .05em; color: rgba(255,255,255,.40);
 }
 
-/* ── DIVIDER ── */
-.col-div {
+/* ── SEPARADOR VERTICAL ── */
+.col-sep {
   width: 1px; flex-shrink: 0;
-  background: linear-gradient(to bottom, transparent, rgba(232,160,32,.22) 25%, rgba(232,160,32,.22) 75%, transparent);
-  margin: 2.4vh 0;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(232,160,32,.22) 20%,
+    rgba(232,160,32,.22) 80%,
+    transparent);
+  margin: 18px 0;
 }
 
-/* ── QR ── */
+/* ── QR (direita) ── */
 .col-qr {
-  width: 28vh; flex-shrink: 0;
+  width: 160px; flex-shrink: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 1.4vh;
-  padding: 2vh 2.4vh 2vh 1.8vh;
+  gap: 10px;
+  padding: 16px 18px 16px 14px;
 }
 
 .qr-frame {
-  width: 21vh; height: 21vh;
-  background: #ffffff;
-  border-radius: 1.2vh;
-  padding: .7vh;
+  width: 118px; height: 118px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px;
   display: flex; align-items: center; justify-content: center;
   position: relative;
-  box-shadow: 0 0 0 1px rgba(232,160,32,.25);
+  box-shadow: 0 0 0 1px rgba(232,160,32,.3);
 }
 .qr-frame img {
   width: 100%; height: 100%;
-  object-fit: contain; display: block; border-radius: .6vh;
+  object-fit: contain; display: block; border-radius: 3px;
 }
-
-/* QR placeholder when image missing */
-.qr-ph {
-  display: flex; flex-direction: column; align-items: center; gap: .6vh;
+.qr-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
-.qr-ph .qi { font-size: 5vh; opacity: .22; color: #333; }
-.qr-ph p { font-family: 'IBM Plex Mono', monospace; font-size: .85vh; color: #999; text-align: center; line-height: 1.4; }
+.qr-empty .qi { font-size: 38px; opacity: .22; color: #333; }
+.qr-empty p { font-family: 'IBM Plex Mono', monospace; font-size: 7px; color: #888; text-align: center; line-height: 1.4; }
 
-/* Gold corner marks on QR */
-.qc { position: absolute; width: 1.2vh; height: 1.2vh; }
-.qc.tl { top: -.1vh; left: -.1vh; border-top: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: .3vh 0 0 0; }
-.qc.tr { top: -.1vh; right: -.1vh; border-top: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 .3vh 0 0; }
-.qc.bl { bottom: -.1vh; left: -.1vh; border-bottom: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 0 0 0 .3vh; }
-.qc.br { bottom: -.1vh; right: -.1vh; border-bottom: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 0 .3vh 0; }
+/* Cantos dourados no QR */
+.qc { position: absolute; width: 10px; height: 10px; }
+.qc.tl { top: -2px; left: -2px; border-top: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 2px 0 0 0; }
+.qc.tr { top: -2px; right: -2px; border-top: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 2px 0 0; }
+.qc.bl { bottom: -2px; left: -2px; border-bottom: 2px solid #e8a020; border-left: 2px solid #e8a020; border-radius: 0 0 0 2px; }
+.qc.br { bottom: -2px; right: -2px; border-bottom: 2px solid #e8a020; border-right: 2px solid #e8a020; border-radius: 0 0 2px 0; }
 
 .qr-label {
-  font-family: 'IBM Plex Mono', monospace; font-size: .9vh;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.28); text-align: center; line-height: 1.6;
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255,255,255,.28); text-align: center; line-height: 1.55;
 }
-.qr-label strong { color: #e8a020; display: block; font-size: 1.05vh; margin-bottom: .2vh; }
+.qr-label strong { color: #e8a020; display: block; font-size: 9px; margin-bottom: 1px; }
 
 /* ── TICKER STRIP ── */
 .strip {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
-  height: 3.2vh; overflow: hidden;
-  border-top: 1px solid rgba(232,160,32,.08);
-  background: rgba(0,0,0,.35);
+  height: 22px; overflow: hidden;
+  border-top: 1px solid rgba(232,160,32,.09);
+  background: rgba(0,0,0,.4);
   display: flex; align-items: center;
 }
 .ticker {
   display: flex; white-space: nowrap;
-  animation: tick 22s linear infinite;
+  animation: tick 24s linear infinite;
 }
 .ticker span {
-  font-family: 'IBM Plex Mono', monospace; font-size: .85vh;
-  letter-spacing: .12em; color: rgba(255,255,255,.2);
-  padding: 0 2.2vh;
+  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
+  letter-spacing: .12em; color: rgba(255,255,255,.20);
+  padding: 0 18px;
 }
-.ticker span.hi { color: rgba(232,160,32,.65); }
+.ticker span.hi { color: rgba(232,160,32,.7); }
 @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 </style>
 </head>
 <body>
 
 <div class="stage">
-  <div class="card">
+  <div class="card" id="card">
 
-    <!-- BG -->
     <div class="bg-grid"></div>
     <div class="bg-dots"></div>
     <div class="bg-glow"></div>
-    <div class="bg-glow2"></div>
     <div class="scan"></div>
-
-    <!-- Corners -->
     <div class="cc tl"></div>
     <div class="cc tr"></div>
     <div class="cc bl"></div>
     <div class="cc br"></div>
 
-    <!-- INNER -->
     <div class="inner">
 
       <!-- FOTO -->
       <div class="col-photo">
         <img src="euSemFundo.png" alt="Márcio Cunha"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="col-photo-ph" style="display:none">
+        <div class="ph-placeholder" style="display:none">
           <div class="phi">👤</div>
           <p>euSemFundo.png</p>
         </div>
@@ -297,10 +288,9 @@ html, body {
             Soluções para pequenos negócios
           </div>
           <div class="tagline">
-            Do controle industrial à clareza<br>financeira do seu negócio.
+            Do controle industrial à<br>clareza financeira do seu negócio.
           </div>
         </div>
-
         <div class="contacts">
           <a class="crow" href="https://wa.me/5511970696387">
             <div class="cicon">💬</div>
@@ -317,8 +307,8 @@ html, body {
         </div>
       </div>
 
-      <!-- DIVIDER -->
-      <div class="col-div"></div>
+      <!-- SEP -->
+      <div class="col-sep"></div>
 
       <!-- QR -->
       <div class="col-qr">
@@ -329,7 +319,7 @@ html, body {
           <div class="qc br"></div>
           <img src="qrcode.png" alt="QR Code"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="qr-ph" style="display:none">
+          <div class="qr-empty" style="display:none">
             <div class="qi">▦</div>
             <p>qrcode.png</p>
           </div>
@@ -352,8 +342,7 @@ html, body {
         <span class="hi">Precificação inteligente</span><span>·</span>
         <span>Controle de estoque</span><span>·</span>
         <span class="hi">Custo real por produto</span><span>·</span>
-        <span>Comissões automáticas</span><span>·</span>
-        <span class="hi">8+ anos na indústria</span><span>·</span>
+        <span>8+ anos na indústria</span><span>·</span>
         <span class="hi">Confeitaria</span><span>·</span>
         <span>Pizzaria</span><span>·</span>
         <span class="hi">Salão</span><span>·</span>
@@ -361,13 +350,36 @@ html, body {
         <span class="hi">Precificação inteligente</span><span>·</span>
         <span>Controle de estoque</span><span>·</span>
         <span class="hi">Custo real por produto</span><span>·</span>
-        <span>Comissões automáticas</span><span>·</span>
-        <span class="hi">8+ anos na indústria</span><span>·</span>
+        <span>8+ anos na indústria</span><span>·</span>
       </div>
     </div>
 
-  </div><!-- /.card -->
-</div><!-- /.stage -->
+  </div>
+</div>
+
+<script>
+/*
+  O card é 600×300 (landscape).
+  Ao girar 90°, sua pegada visual vira 300px largo × 600px alto.
+  Calculamos o scale para que essa pegada caiba na tela portrait,
+  com 90% de aproveitamento para dar uma margem visual.
+*/
+function fit() {
+  var card = document.getElementById('card');
+  var W = window.innerWidth;
+  var H = window.innerHeight;
+
+  /* após rotação: largura visual = 300, altura visual = 600 */
+  var scaleW = W / 300;
+  var scaleH = H / 600;
+  var s = Math.min(scaleW, scaleH) * 0.90;
+
+  card.style.transform = 'rotate(90deg) scale(' + s + ')';
+}
+
+fit();
+window.addEventListener('resize', fit);
+</script>
 
 </body>
 </html>
