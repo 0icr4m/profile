@@ -1,162 +1,261 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marcio Cunha | Sistemas para Pequenos Negócios</title>
+<title>Márcio Cunha | Sistemas para Pequenos Negócios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #080808;
-  --surface: #111;
-  --border: #1f1f1f;
-  --amber: #e8a020;
-  --amber-dim: rgba(232,160,32,0.10);
-  --text: #e8e8e8;
-  --muted: #666;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'IBM Plex Sans', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-}
-.top {
-  text-align: center;
-  margin-bottom: 48px;
-}
-.label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--amber);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 10vw, 60px);
-  letter-spacing: 0.04em;
-  color: #fff;
-  line-height: 1;
-  margin-bottom: 14px;
-}
-.sub {
-  font-size: 14px;
-  color: var(--muted);
-  max-width: 320px;
-  margin: 0 auto;
-  line-height: 1.65;
-}
-.question {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  text-align: center;
-}
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  width: 100%;
-  max-width: 440px;
-}
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 22px 18px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: border-color 0.2s, background 0.2s;
-  cursor: pointer;
-}
-.card:hover {
-  border-color: rgba(232,160,32,0.4);
-  background: #141414;
-}
-.card-icon { font-size: 26px; }
-.card-name {
-  font-weight: 500;
-  font-size: 15px;
-  color: #fff;
-}
-.card-teaser {
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.card-link {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--amber);
-  margin-top: 4px;
-}
-.footer {
-  margin-top: 48px;
-  text-align: center;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: #333;
-}
-.footer a { color: #444; text-decoration: none; }
-.footer a:hover { color: var(--muted); }
+[data-theme="dark"]{--bg:#13141a;--surface:#1c1e26;--surface2:#22242e;--border:#2e3040;--text:#e2e4ec;--muted:#6b7080;--shadow:rgba(0,0,0,0.55);--pat:rgba(255,255,255,0.022);--hero-bg:#0d0e13;--hero-line:rgba(232,160,32,0.18);--hero-glow:rgba(232,160,32,0.10);--hero-text:#ffffff;--hero-sub:rgba(255,255,255,0.52);}
+[data-theme="light"]{--bg:#f0ede6;--surface:#ffffff;--surface2:#f8f6f1;--border:#dbd7ce;--text:#1a1a20;--muted:#8a8478;--shadow:rgba(0,0,0,0.10);--pat:rgba(0,0,0,0.04);--hero-bg:#181a22;--hero-line:rgba(232,160,32,0.22);--hero-glow:rgba(232,160,32,0.12);--hero-text:#ffffff;--hero-sub:rgba(255,255,255,0.50);}
+[data-theme="musgo"]{--bg:#141a15;--surface:#1c261e;--surface2:#222e24;--border:#2e3e30;--text:#d4e8d4;--muted:#6a8068;--shadow:rgba(0,0,0,0.55);--pat:rgba(100,200,100,0.025);--hero-bg:#0e1410;--hero-line:rgba(100,210,110,0.20);--hero-glow:rgba(90,190,100,0.10);--hero-text:#e0f0e0;--hero-sub:rgba(180,230,180,0.48);}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--amber:#e8a020;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-weight:300;transition:background .3s,color .3s;overflow-x:hidden;}
+
+/* THEME TOGGLE */
+.theme-bar{position:fixed;top:14px;right:16px;z-index:200;display:flex;gap:4px;align-items:center;background:rgba(10,10,16,0.80);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px;}
+.theme-btn{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .2s,transform .15s;}
+.theme-btn:hover{transform:scale(1.15);}
+.theme-btn.active{border-color:var(--amber);}
+.theme-btn[data-t="dark"]{background:#13141a;}
+.theme-btn[data-t="light"]{background:#f0ede6;box-shadow:inset 0 0 0 1px #bbb;}
+.theme-btn[data-t="musgo"]{background:#1c261e;}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{position:relative;background:var(--hero-bg);min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+
+/* Circuit grid background */
+.hero-bg-grid{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(232,160,32,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,160,32,.06) 1px,transparent 1px);
+  background-size:60px 60px;}
+[data-theme="musgo"] .hero-bg-grid{background-image:linear-gradient(rgba(90,200,100,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(90,200,100,.07) 1px,transparent 1px);}
+
+/* Nodes on grid intersections */
+.hero-bg-dots{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23e8a020' opacity='0.12'/%3E%3C/svg%3E");
+  background-size:60px 60px;}
+[data-theme="musgo"] .hero-bg-dots{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%2364c878' opacity='0.13'/%3E%3C/svg%3E");}
+
+/* Radial glow */
+.hero-glow-orb{position:absolute;z-index:1;pointer-events:none;top:-120px;right:-120px;width:520px;height:520px;background:radial-gradient(circle,var(--hero-glow) 0%,transparent 65%);}
+.hero-glow-orb2{position:absolute;z-index:1;pointer-events:none;bottom:-60px;left:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(232,160,32,.04) 0%,transparent 65%);}
+
+/* Diagonal accent */
+.hero-diagonal{position:absolute;z-index:1;pointer-events:none;inset:0;
+  background:linear-gradient(118deg,transparent 55%,rgba(232,160,32,.04) 70%,rgba(232,160,32,.02) 85%,transparent 100%);}
+
+/* Animated scan line */
+.hero-scan{position:absolute;left:0;right:0;height:1px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,var(--hero-line) 40%,var(--hero-line) 60%,transparent 100%);
+  animation:scan 7s ease-in-out infinite;}
+@keyframes scan{0%{top:10%;opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{top:86%;opacity:0;}}
+
+/* Corner brackets */
+.corner{position:absolute;width:20px;height:20px;z-index:2;pointer-events:none;}
+.corner.tl{top:20px;left:20px;border-top:1px solid var(--hero-line);border-left:1px solid var(--hero-line);}
+.corner.tr{top:20px;right:20px;border-top:1px solid var(--hero-line);border-right:1px solid var(--hero-line);}
+.corner.bl{bottom:56px;left:20px;border-bottom:1px solid var(--hero-line);border-left:1px solid var(--hero-line);}
+.corner.br{bottom:56px;right:20px;border-bottom:1px solid var(--hero-line);border-right:1px solid var(--hero-line);}
+
+/* Side stats */
+.hero-side-stats{position:absolute;right:20px;top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:18px;align-items:flex-end;}
+.h-stat{text-align:right;border-right:2px solid var(--hero-line);padding-right:10px;}
+.h-stat-n{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--amber);line-height:1;}
+.h-stat-l{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--hero-sub);margin-top:2px;line-height:1.3;}
+
+/* Content */
+.hero-content{position:relative;z-index:4;padding:0 24px 52px;max-width:600px;}
+
+.hero-chip{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(232,160,32,.30);background:rgba(232,160,32,.06);padding:5px 12px;border-radius:2px;margin-bottom:20px;}
+.hero-chip::before{content:'◆';font-size:5px;}
+
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,14vw,86px);line-height:.9;letter-spacing:.02em;color:var(--hero-text);margin-bottom:18px;}
+.hero-h1 em{font-style:normal;color:var(--amber);}
+
+.hero-p{font-size:14px;color:var(--hero-sub);line-height:1.7;max-width:370px;margin-bottom:26px;}
+
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;padding:13px 22px;border-radius:3px;text-decoration:none;transition:opacity .2s,transform .15s;}
+.btn-p:hover{opacity:.87;transform:translateY(-1px);}
+.btn-g{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hero-line);color:var(--hero-sub);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;padding:13px 18px;border-radius:3px;text-decoration:none;transition:border-color .2s,color .2s;}
+.btn-g:hover{border-color:rgba(232,160,32,.5);color:var(--hero-text);}
+
+/* Trust ticker at bottom of hero */
+.hero-trust{position:absolute;bottom:0;left:0;right:0;z-index:4;border-top:1px solid rgba(255,255,255,0.05);background:rgba(0,0,0,.30);backdrop-filter:blur(6px);overflow:hidden;}
+.ticker-inner{display:flex;white-space:nowrap;animation:tick 24s linear infinite;}
+.ticker-inner span{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.13em;color:rgba(255,255,255,.28);padding:9px 22px;}
+.ticker-inner span.hi{color:var(--amber);}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* Gradient fade into page */
+.hero-fade{position:absolute;bottom:34px;left:0;right:0;height:100px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--hero-bg));}
+
+/* ═══════════════ BELOW HERO ═══════════════ */
+.below{background:var(--bg);transition:background .3s;position:relative;}
+.below::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--pat) 1px,transparent 1px),linear-gradient(90deg,var(--pat) 1px,transparent 1px);background-size:40px 40px;}
+.inner{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:40px 20px 60px;}
+
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px 16px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,background .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber);transform:scaleX(0);transition:transform .25s;transform-origin:left;}
+.card:hover{border-color:rgba(232,160,32,.4);background:var(--surface2);transform:translateY(-2px);box-shadow:0 8px 24px var(--shadow);}
+.card:hover::after{transform:scaleX(1);}
+.card-icon{font-size:24px;}
+.card-name{font-weight:500;font-size:14px;color:var(--text);}
+.card-teaser{font-size:11px;color:var(--muted);line-height:1.45;}
+.card-link{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--amber);margin-top:4px;}
+
+/* QR */
+.qr-section{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.qr-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.qr-box{width:90px;height:90px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.qr-box img{width:100%;height:100%;object-fit:contain;padding:6px;}
+.qr-ph{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.qr-ph .qi{font-size:28px;opacity:.2;}
+.qr-ph p{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--muted);text-align:center;line-height:1.4;}
+
+.footer{margin-top:24px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);}
+.footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s;}
+.footer a:hover{color:var(--text);border-bottom-color:var(--muted);}
 </style>
 </head>
 <body>
 
-<div class="top">
-  <div class="label">Marcio Cunha · Soluções Digitais</div>
-  <h1>Qual é o<br>seu negócio?</h1>
-  <p class="sub">Sistemas prontos para uso, adaptados à realidade de cada segmento. Escolha o seu e veja como funciona.</p>
+<div class="theme-bar">
+  <button class="theme-btn" data-t="dark"  onclick="setTheme('dark')"  title="Escuro"></button>
+  <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Claro"></button>
+  <button class="theme-btn" data-t="musgo" onclick="setTheme('musgo')" title="Verde Musgo"></button>
 </div>
 
-<div class="question">Selecione seu segmento</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-dots"></div>
+  <div class="hero-glow-orb"></div>
+  <div class="hero-glow-orb2"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-scan"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
 
-<div class="grid">
-  <a class="card" href="confeitaria.html">
-    <div class="card-icon">🎂</div>
-    <div class="card-name">Confeitaria</div>
-    <div class="card-teaser">Precificação e controle de produção</div>
-    <div class="card-link">ver sistema →</div>
-  </a>
-  <a class="card" href="pizzaria.html">
-    <div class="card-icon">🍕</div>
-    <div class="card-name">Pizzaria</div>
-    <div class="card-teaser">Ficha técnica, custos e produção</div>
-    <div class="card-link">ver sistema →</div>
-  </a>
-  <a class="card" href="salao.html">
-    <div class="card-icon">✂️</div>
-    <div class="card-name">Salão</div>
-    <div class="card-teaser">Agenda, comissões e faturamento, controle de estoque e equipamentos </div>
-    <div class="card-link">ver sistema →</div>
-  </a>
-  <a class="card" href="petshop.html">
-    <div class="card-icon">🐾</div>
-    <div class="card-name">Petshop</div>
-    <div class="card-teaser">Agenda, banho e tosa, serviços, insumos e receita</div>
-    <div class="card-link">ver sistema →</div>
-  </a>
+  <div class="hero-side-stats">
+    <div class="h-stat">
+      <div class="h-stat-n">8+</div>
+      <div class="h-stat-l">Anos de<br>experiência</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-n">4</div>
+      <div class="h-stat-l">Segmentos<br>atendidos</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-n">100%</div>
+      <div class="h-stat-l">Sistemas<br>estáveis</div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-chip">Soluções digitais para pequenos negócios</div>
+
+    <h1 class="hero-h1">
+      Seu negócio<br>no controle.
+      <em>Do dado<br>ao lucro.</em>
+    </h1>
+
+    <p class="hero-p">
+      Sistemas prontos que trazem clareza, previsibilidade e controle financeiro real — para quem trabalha muito e quer ver o dinheiro sobrar de verdade no fim do mês.
+    </p>
+
+    <div class="hero-ctas">
+      <a class="btn-p" href="https://wa.me/5511970696387?text=Olá%20Márcio!%20Vi%20sua%20página%20e%20quero%20saber%20mais.">💬 Falar no WhatsApp</a>
+      <a class="btn-g" href="#segmentos">ver sistemas ↓</a>
+    </div>
+  </div>
+
+  <div class="hero-fade"></div>
+
+  <div class="hero-trust">
+    <div class="ticker-inner">
+      <span class="hi">Precificação inteligente</span><span>·</span>
+      <span>Gestão de produção</span><span>·</span>
+      <span class="hi">Controle de estoque</span><span>·</span>
+      <span>Comissões automáticas</span><span>·</span>
+      <span class="hi">Custo real por produto</span><span>·</span>
+      <span>Confeitaria</span><span>·</span><span>Pizzaria</span><span>·</span><span>Salão</span><span>·</span><span>Petshop</span><span>·</span>
+      <span class="hi">8+ anos na indústria</span><span>·</span>
+      <span class="hi">Precificação inteligente</span><span>·</span>
+      <span>Gestão de produção</span><span>·</span>
+      <span class="hi">Controle de estoque</span><span>·</span>
+      <span>Comissões automáticas</span><span>·</span>
+      <span class="hi">Custo real por produto</span><span>·</span>
+      <span>Confeitaria</span><span>·</span><span>Pizzaria</span><span>·</span><span>Salão</span><span>·</span><span>Petshop</span><span>·</span>
+      <span class="hi">8+ anos na indústria</span><span>·</span>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTOS -->
+<div class="below" id="segmentos">
+  <div class="inner">
+    <div class="sec-label">Selecione seu segmento</div>
+
+    <div class="grid">
+      <a class="card" href="confeitaria.html">
+        <div class="card-icon">🎂</div>
+        <div class="card-name">Confeitaria</div>
+        <div class="card-teaser">Precificação e controle de produção</div>
+        <div class="card-link">ver sistema →</div>
+      </a>
+      <a class="card" href="pizzaria.html">
+        <div class="card-icon">🍕</div>
+        <div class="card-name">Pizzaria</div>
+        <div class="card-teaser">Ficha técnica, custos e produção</div>
+        <div class="card-link">ver sistema →</div>
+      </a>
+      <a class="card" href="salao.html">
+        <div class="card-icon">✂️</div>
+        <div class="card-name">Salão</div>
+        <div class="card-teaser">Agenda, comissões, estoque e faturamento</div>
+        <div class="card-link">ver sistema →</div>
+      </a>
+      <a class="card" href="petshop.html">
+        <div class="card-icon">🐾</div>
+        <div class="card-name">Petshop</div>
+        <div class="card-teaser">Agenda, banho e tosa, serviços e receita</div>
+        <div class="card-link">ver sistema →</div>
+      </a>
+    </div>
+
+    <div class="qr-section">
+      <div class="qr-label">Compartilhe esta página</div>
+      <div class="qr-box">
+        <img src="qrcode.png" alt="QR Code"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="qr-ph" style="display:none">
+          <div class="qi">▦</div>
+          <p>coloque<br>qrcode.png</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="https://wa.me/5511970696387">Dúvidas? Me chama no WhatsApp</a>
+    </div>
+  </div>
 </div>
 
-<div class="footer">
-  <a href="https://wa.me/5511970696387">Dúvidas? Me chama no WhatsApp</a>
-</div>
-
+<script>
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('mc-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));}
+(function(){setTheme(localStorage.getItem('mc-theme')||'dark');})();
+</script>
 </body>
 </html>

@@ -1,204 +1,135 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema para Petshop | Marcio Cunha</title>
+<title>Sistema para Petshop | Márcio Cunha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #080808;
-  --surface: #111;
-  --surface2: #161616;
-  --border: #1f1f1f;
-  --accent: #7ab0e0;
-  --accent-dim: rgba(122,176,224,0.10);
-  --text: #e8e8e8;
-  --muted: #666;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
-}
-.back {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  letter-spacing: 0.12em; color: var(--muted);
-  text-decoration: none; padding: 16px 20px; transition: color 0.2s;
-}
-.back:hover { color: var(--text); }
-.hero { padding: 32px 20px 40px; max-width: 600px; margin: 0 auto; }
-.hero-tag {
-  display: inline-block; font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px; letter-spacing: 0.18em; color: var(--accent);
-  text-transform: uppercase; border: 1px solid rgba(122,176,224,0.25);
-  padding: 4px 10px; border-radius: 2px; margin-bottom: 20px;
-}
-.hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(40px, 11vw, 68px);
-  line-height: 0.95; color: #fff; margin-bottom: 20px;
-}
-.hero h1 span { color: var(--accent); }
-.hero-sub { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 420px; margin-bottom: 28px; }
-.cta-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent); color: #000;
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
-  font-weight: 500; letter-spacing: 0.08em;
-  padding: 14px 24px; border-radius: 3px; text-decoration: none; transition: opacity 0.2s;
-}
-.cta-btn:hover { opacity: 0.88; }
-.section { max-width: 600px; margin: 0 auto; padding: 0 20px 48px; }
-.section-label {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-  margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
-}
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.pain-list { display: flex; flex-direction: column; gap: 12px; }
-.pain-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 3px solid rgba(122,176,224,0.4);
-  border-radius: 4px; padding: 16px 18px;
-}
-.pain-item p { font-size: 14px; color: #aaa; line-height: 1.6; }
-.pain-item p strong { color: #fff; font-weight: 500; }
-.benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.benefit { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 16px; }
-.benefit-icon { font-size: 22px; margin-bottom: 10px; }
-.benefit-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 6px; }
-.benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
-.steps { display: flex; flex-direction: column; gap: 0; }
-.step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
-.step:not(:last-child)::after {
-  content: ''; position: absolute; left: 15px; top: 32px; bottom: 0;
-  width: 1px; background: var(--border);
-}
-.step-num {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--surface); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  color: var(--accent); flex-shrink: 0;
-}
-.step-text { padding-top: 6px; }
-.step-title { font-weight: 500; font-size: 14px; color: #fff; margin-bottom: 4px; }
-.step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.cta-final {
-  background: var(--surface); border: 1px solid var(--border);
-  border-top: 2px solid var(--accent); border-radius: 4px;
-  padding: 28px 24px; text-align: center;
-}
-.cta-final h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.04em; color: #fff; margin-bottom: 8px; }
-.cta-final p { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
-.author {
-  margin-top: 32px; display: flex; align-items: center; gap: 12px;
-  padding: 16px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface2);
-}
-.author img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: var(--border); }
-.author-name { font-weight: 500; font-size: 13px; color: #fff; }
-.author-bio { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+[data-theme="dark"]{--bg:#13141a;--surface:#1c1e26;--surface2:#22242e;--border:#2e3040;--text:#e2e4ec;--muted:#6b7080;--shadow:rgba(0,0,0,0.5);--pat1:rgba(255,255,255,0.022);--grad:radial-gradient(ellipse 60% 50% at 85% 8%,rgba(122,176,224,0.07),transparent);}
+[data-theme="light"]{--bg:#f0ede6;--surface:#ffffff;--surface2:#f8f6f1;--border:#dbd7ce;--text:#1a1a20;--muted:#8a8478;--shadow:rgba(0,0,0,0.10);--pat1:rgba(0,0,0,0.04);--grad:radial-gradient(ellipse 60% 50% at 85% 8%,rgba(122,176,224,0.13),transparent);}
+[data-theme="musgo"]{--bg:#141a15;--surface:#1c261e;--surface2:#222e24;--border:#2e3e30;--text:#d4e8d4;--muted:#6a8068;--shadow:rgba(0,0,0,0.5);--pat1:rgba(100,200,100,0.025);--grad:radial-gradient(ellipse 60% 50% at 85% 8%,rgba(80,180,80,0.06),transparent);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--amber:#e8a020;--accent:#7ab0e0;--accent-rgb:122,176,224;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-weight:300;transition:background .3s,color .3s;position:relative;overflow-x:hidden;}
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--pat1) 1px,transparent 1px),linear-gradient(90deg,var(--pat1) 1px,transparent 1px),var(--grad);background-size:40px 40px,40px 40px,100% 100%;}
+.bg-circuit{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='39' width='20' height='1' fill='%23ffffff' opacity='0.025'/%3E%3Crect x='60' y='39' width='20' height='1' fill='%23ffffff' opacity='0.025'/%3E%3Crect x='39' y='0' width='1' height='20' fill='%23ffffff' opacity='0.025'/%3E%3Crect x='39' y='60' width='1' height='20' fill='%23ffffff' opacity='0.025'/%3E%3Ccircle cx='40' cy='40' r='2' fill='none' stroke='%23ffffff' stroke-width='.5' opacity='.04'/%3E%3C/svg%3E");}
+[data-theme="light"] .bg-circuit{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='39' width='20' height='1' fill='%23000' opacity='0.04'/%3E%3Crect x='60' y='39' width='20' height='1' fill='%23000' opacity='0.04'/%3E%3Crect x='39' y='0' width='1' height='20' fill='%23000' opacity='0.04'/%3E%3Crect x='39' y='60' width='1' height='20' fill='%23000' opacity='0.04'/%3E%3Ccircle cx='40' cy='40' r='2' fill='none' stroke='%23000' stroke-width='.5' opacity='.05'/%3E%3C/svg%3E");}
+.theme-bar{position:fixed;top:14px;right:16px;z-index:100;display:flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px;box-shadow:0 4px 16px var(--shadow);}
+.theme-btn{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .2s,transform .15s;}
+.theme-btn:hover{transform:scale(1.15);}
+.theme-btn.active{border-color:var(--accent);}
+.theme-btn[data-t="dark"]{background:#13141a;}
+.theme-btn[data-t="light"]{background:#f0ede6;box-shadow:inset 0 0 0 1px #ccc;}
+.theme-btn[data-t="musgo"]{background:#1c261e;}
+.page{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:54px 20px 80px;}
+.back{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-decoration:none;margin-bottom:28px;transition:color .2s;}
+.back:hover{color:var(--text);}
+.hero-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;border:1px solid rgba(var(--accent-rgb),.25);padding:4px 10px;border-radius:2px;margin-bottom:18px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,11vw,66px);line-height:.95;color:var(--text);margin-bottom:18px;}
+h1 span{color:var(--accent);}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:440px;margin-bottom:26px;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;padding:13px 22px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
+.cta-btn:hover{opacity:.85;}
+.sep{margin:32px 0 22px;display:flex;align-items:center;gap:10px;}
+.sep-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.sep::after{content:'';flex:1;height:1px;background:var(--border);}
+.pain-list{display:flex;flex-direction:column;gap:10px;}
+.pain-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid rgba(var(--accent-rgb),.45);border-radius:4px;padding:14px 16px;}
+.pain-item p{font-size:13px;color:var(--muted);line-height:1.6;}
+.pain-item p strong{color:var(--text);font-weight:500;}
+.benefit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.benefit{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 14px;}
+.benefit-icon{font-size:20px;margin-bottom:8px;}
+.benefit-title{font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;}
+.benefit-desc{font-size:11px;color:var(--muted);line-height:1.55;}
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:14px;padding-bottom:22px;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:14px;top:30px;bottom:0;width:1px;background:var(--border);}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--surface);border:1px solid rgba(var(--accent-rgb),.4);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);flex-shrink:0;}
+.step-body{padding-top:5px;}
+.step-title{font-weight:500;font-size:13px;color:var(--text);margin-bottom:3px;}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.cta-final{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:6px;padding:26px 22px;text-align:center;margin-bottom:28px;}
+.cta-final h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;color:var(--text);margin-bottom:8px;}
+.cta-final p{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.author{margin-top:20px;display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--border);border-radius:4px;background:var(--surface2);text-align:left;}
+.author img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--border);flex-shrink:0;}
+.author-name{font-weight:500;font-size:13px;color:var(--text);}
+.author-bio{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.qr-row{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;}
+.qr-box{width:72px;height:72px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.qr-box img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.qr-ph{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.qr-ph .qi{font-size:22px;opacity:.25;}
+.qr-ph p{font-family:'IBM Plex Mono',monospace;font-size:7px;color:var(--muted);text-align:center;line-height:1.3;}
+.qr-info p{font-size:12px;color:var(--muted);line-height:1.6;}
+.qr-info strong{color:var(--text);font-size:13px;}
 </style>
 </head>
 <body>
-
-<a class="back" href="index.html">← voltar</a>
-
-<div class="hero">
+<div class="bg-layer"></div>
+<div class="bg-circuit"></div>
+<div class="theme-bar">
+  <button class="theme-btn" data-t="dark"  onclick="setTheme('dark')"></button>
+  <button class="theme-btn" data-t="light" onclick="setTheme('light')"></button>
+  <button class="theme-btn" data-t="musgo" onclick="setTheme('musgo')"></button>
+</div>
+<div class="page">
+  <a class="back" href="index.html">← voltar</a>
   <div class="hero-tag">🐾 Sistema para Petshop</div>
   <h1>Banho e tosa<br>todo dia — e a<br><span>margem sumindo?</span></h1>
   <p class="hero-sub">Agenda cheia, shampoo, condicionador, lâminas, produtos de revenda — e no final você não sabe exatamente quanto sobra de cada serviço. Esse sistema coloca isso na tela pra você.</p>
-  <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Quero entender como funciona</a>
-</div>
+  <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Márcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Quero entender como funciona</a>
 
-<div class="section">
-  <div class="section-label">Você se identifica?</div>
+  <div class="sep"><span class="sep-label">Você se identifica?</span></div>
   <div class="pain-list">
-    <div class="pain-item">
-      <p><strong>Você cobra pelo banho, mas não calcula</strong> quanto de produto foi usado em cada animal. Um golden retriever e um pinscher custam o mesmo pra você? No sistema atual, provavelmente sim.</p>
-    </div>
-    <div class="pain-item">
-      <p><strong>Estoque de produto desaparece</strong> sem você saber onde foi. Você compra, usa, compra de novo — mas não tem controle de consumo por serviço.</p>
-    </div>
-    <div class="pain-item">
-      <p><strong>Os pets que ficam internados ou em hotel</strong> geram custo de insumo que você não monitora. É difícil cobrar certo sem ter os dados.</p>
-    </div>
-    <div class="pain-item">
-      <p><strong>Você tem revenda de produtos</strong>, mas não sabe quais têm mais saída nem qual margem cada um gera de verdade.</p>
-    </div>
+    <div class="pain-item"><p><strong>Você cobra pelo banho, mas não calcula</strong> quanto de produto foi usado em cada animal. Um golden retriever e um pinscher custam o mesmo pra você? Provavelmente sim.</p></div>
+    <div class="pain-item"><p><strong>Estoque de produto desaparece</strong> sem você saber onde foi. Você compra, usa, compra de novo — sem controle de consumo por serviço.</p></div>
+    <div class="pain-item"><p><strong>Os pets internados ou em hotel</strong> geram custo de insumo que você não monitora. É difícil cobrar certo sem ter os dados.</p></div>
+    <div class="pain-item"><p><strong>Você tem revenda de produtos</strong>, mas não sabe quais têm mais saída nem qual margem cada um gera de verdade.</p></div>
   </div>
-</div>
 
-<div class="section">
-  <div class="section-label">O que o sistema entrega</div>
+  <div class="sep"><span class="sep-label">O que o sistema entrega</span></div>
   <div class="benefit-grid">
-    <div class="benefit">
-      <div class="benefit-icon">🐕</div>
-      <div class="benefit-title">Custo por serviço</div>
-      <div class="benefit-desc">Banho, tosa, hidratação — cada serviço com o custo real de insumos calculado. Preço que cobre e dá lucro.</div>
-    </div>
-    <div class="benefit">
-      <div class="benefit-icon">📦</div>
-      <div class="benefit-title">Estoque de insumos</div>
-      <div class="benefit-desc">Produtos consumidos por atendimento descontados automaticamente. Você vê o que tem e quando pedir.</div>
-    </div>
-    <div class="benefit">
-      <div class="benefit-icon">🏪</div>
-      <div class="benefit-title">Controle de revenda</div>
-      <div class="benefit-desc">Margem por produto de revenda, giro de estoque, produtos que estão parados. Visão real do que vale a pena ter.</div>
-    </div>
-    <div class="benefit">
-      <div class="benefit-icon">📊</div>
-      <div class="benefit-title">Receita por categoria</div>
-      <div class="benefit-desc">Banho e tosa vs. revenda vs. hotelaria — você sabe de onde vem o dinheiro e o que tem mais margem.</div>
-    </div>
+    <div class="benefit"><div class="benefit-icon">🐕</div><div class="benefit-title">Custo por serviço</div><div class="benefit-desc">Banho, tosa, hidratação — cada serviço com o custo real de insumos. Preço que cobre e dá lucro.</div></div>
+    <div class="benefit"><div class="benefit-icon">📦</div><div class="benefit-title">Estoque de insumos</div><div class="benefit-desc">Produtos consumidos por atendimento descontados automaticamente. Você sabe o que tem e quando pedir.</div></div>
+    <div class="benefit"><div class="benefit-icon">🏪</div><div class="benefit-title">Controle de revenda</div><div class="benefit-desc">Margem por produto de revenda, giro de estoque, o que está parado. Visão real do que vale a pena ter.</div></div>
+    <div class="benefit"><div class="benefit-icon">📊</div><div class="benefit-title">Receita por categoria</div><div class="benefit-desc">Banho vs. revenda vs. hotelaria — você sabe de onde vem o dinheiro e o que tem mais margem.</div></div>
   </div>
-</div>
 
-<div class="section">
-  <div class="section-label">Como começa</div>
+  <div class="sep"><span class="sep-label">Como começa</span></div>
   <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-text">
-        <div class="step-title">Me manda seus serviços e produtos</div>
-        <div class="step-desc">Lista de serviços que você oferece, insumos que usa e produtos que revende. Pelo WhatsApp mesmo.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-text">
-        <div class="step-title">Configuro o sistema para o seu petshop</div>
-        <div class="step-desc">Custo de cada insumo por serviço, estoque inicial, produtos de revenda com margem — tudo ajustado para a sua realidade.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-text">
-        <div class="step-title">Você começa a usar no mesmo dia</div>
-        <div class="step-desc">No celular ou computador. Simples, direto, sem instalação.</div>
-      </div>
-    </div>
+    <div class="step"><div class="step-num">01</div><div class="step-body"><div class="step-title">Me manda seus serviços e produtos</div><div class="step-desc">Lista de serviços, insumos e produtos que revende. Pelo WhatsApp mesmo.</div></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-body"><div class="step-title">Configuro o sistema para o seu petshop</div><div class="step-desc">Custo de cada insumo por serviço, estoque inicial, produtos de revenda com margem — tudo ajustado para a sua realidade.</div></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-body"><div class="step-title">Você começa a usar no mesmo dia</div><div class="step-desc">No celular ou computador. Simples, direto, sem instalação.</div></div></div>
   </div>
-</div>
 
-<div class="section">
   <div class="cta-final">
     <h3>Seu petshop merece número claro.</h3>
     <p>Me chama no WhatsApp. Conversa rápida, sem compromisso — eu explico como funciona e você vê se faz sentido.</p>
-    <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Marcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Iniciar conversa</a>
+    <a class="cta-btn" href="https://wa.me/5511970696387?text=Olá%20Márcio!%20Vi%20o%20sistema%20para%20petshop%20e%20quero%20saber%20mais.">💬 Iniciar conversa</a>
     <div class="author">
-      <img src="euPerfil.jpg" alt="Marcio Cunha" onerror="this.style.background='#1f1f1f'">
-      <div>
-        <div class="author-name">Márcio Cunha</div>
-        <div class="author-bio">8+ anos em automação industrial. Aplica a mesma lógica de controle e precisão em pequenos negócios.</div>
-      </div>
+      <img src="euPerfil.jpg" alt="Márcio Cunha" onerror="this.style.background='var(--border)'">
+      <div><div class="author-name">Márcio Cunha</div><div class="author-bio">8+ anos em automação industrial. A mesma lógica de controle e precisão aplicada em pequenos negócios.</div></div>
+    </div>
+  </div>
+
+  <div class="qr-row">
+    <div class="qr-box">
+      <img src="qrcode-petshop.png" alt="QR" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="qr-ph" style="display:none"><div class="qi">▦</div><p>qrcode-petshop.png</p></div>
+    </div>
+    <div class="qr-info">
+      <p><strong>Compartilhe esta página</strong></p>
+      <p>Aponte a câmera do celular para o QR code ou copie o link e envie para quem pode se interessar.</p>
     </div>
   </div>
 </div>
-
+<script>
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('mc-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));}
+(function(){setTheme(localStorage.getItem('mc-theme')||'dark');})();
+</script>
 </body>
 </html>
